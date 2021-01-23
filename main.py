@@ -1,6 +1,5 @@
 # from gevent.pywsgi import WSGIServer
-from app import app
-import routes.user
+from application import app
 
 host = 'localhost'
 port = 5678

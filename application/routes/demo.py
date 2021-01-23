@@ -2,7 +2,7 @@
 
 from flask import request, jsonify
 import json
-from app import app
+from application import app
 
 @app.route('/demo/param/<name>', methods=['GET'])
 def demo_param (name):
