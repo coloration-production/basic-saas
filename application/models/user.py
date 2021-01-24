@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import datetime
 from application import db
 
@@ -32,8 +34,18 @@ class User (db.Model):
     db.session.delete(record)
     db.session.commit()
 
+  @classmethod
+  def modify_record (User, id, user):
+    record = User.query_record(id)
+    record.name = user['name']
+    db.session.add(record)
+    db.session.commit()
+    
+    return record
+
   def to_dict (self):
     return {
       'id': self.id,
-      'name': self.name
+      'name': self.name,
+      'created': self.created
     }

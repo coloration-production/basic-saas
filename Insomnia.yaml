@@ -1,0 +1,181 @@
+_type: export
+__export_format: 4
+__export_date: 2021-01-24T07:59:56.426Z
+__export_source: insomnia.desktop.app:v2020.5.2
+resources:
+  - _id: req_4081b17fd5af4ea198d84c9ee8428845
+    parentId: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    modified: 1611473097470
+    created: 1611472735021
+    url: "{{ _.baseUrl }}/user/Jack"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_15e0cda8df8f4f93a6ca16d4f91de1cc
+    authentication: {}
+    metaSortKey: -1611472735121
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1611472709745
+    created: 1611472709745
+    name: User
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1611472709745
+    _type: request_group
+  - _id: wrk_28004b0463654a279bfc8babcf25df4e
+    parentId: null
+    modified: 1611472640950
+    created: 1611472640950
+    name: python-flask-boilerplate
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_6b1f79307b164061b534fd376539f3bd
+    parentId: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    modified: 1611472938487
+    created: 1611472913977
+    url: "{{ _.baseUrl }}/user/1"
+    name: Remove
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611472735096
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e5f0c0628f9343d4a18beb5ab1694f9c
+    parentId: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    modified: 1611473809919
+    created: 1611472996427
+    url: "{{ _.baseUrl }}/user/2"
+    name: Modify
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Mary"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_dff08e1b868b4e81a8db1a826c4a3152
+    authentication: {}
+    metaSortKey: -1611472735083.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6b8b59be98274b3e94d70a3f31584453
+    parentId: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    modified: 1611472872572
+    created: 1611472859548
+    url: "{{ _.baseUrl }}/user/1"
+    name: Query
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611472735071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_73d3a7f857794bc0bdba5649d3e5c3ff
+    parentId: fld_5afd8b5a8364482fadc419c8c4c3d0be
+    modified: 1611472891589
+    created: 1611472888547
+    url: "{{ _.baseUrl }}/users"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611472735046
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_288a9ff5b36ef9e95ef078f2eb049b0a5e562617
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1611472641163
+    created: 1611472641163
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1611472641163
+    _type: environment
+  - _id: jar_288a9ff5b36ef9e95ef078f2eb049b0a5e562617
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1611472641167
+    created: 1611472641167
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_0bc7b1293d874eb9bc5b975de673ec67
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1611472640954
+    created: 1611472640954
+    fileName: python-flask-boilerplate
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_8330ad5fb18c400ea2e5c1802371898d
+    parentId: env_288a9ff5b36ef9e95ef078f2eb049b0a5e562617
+    modified: 1611472689881
+    created: 1611472657341
+    name: Development
+    data:
+      baseUrl: http://localhost:5678
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: null
+    isPrivate: false
+    metaSortKey: 1611472657341
+    _type: environment

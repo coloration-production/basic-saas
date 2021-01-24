@@ -1,8 +1,9 @@
 # encoding: utf-8
 
-from flask import jsonify
+from flask import jsonify, request
 from application import app
 from application.models.user import User
+import json
 
 @app.route('/users', methods=['GET'])
 def list_users ():
@@ -14,7 +15,7 @@ def list_users ():
 
     return jsonify(record_dicts)
   except:
-    return jsonify('查询失败'), 404
+    return 'query failed', 404
 
 @app.route('/user/<uid>', methods=['GET'])
 def query_user (uid):
@@ -25,7 +26,7 @@ def query_user (uid):
     return jsonify(record.to_dict())
 
   except:
-    return jsonify('查询失败'), 404
+    return 'query failed', 404
 
 @app.route('/user/<uname>', methods=['POST'])
 def create_user (uname):
@@ -38,11 +39,23 @@ def create_user (uname):
     return jsonify(record.to_dict()), 201
 
   except:
-    return jsonify('创建失败'), 400
+    return 'create failed', 400
+
+@app.route('/user/<uid>', methods=['PATCH'])
+def modify_user(uid):
+  try:
+    record = User.modify_record(uid, json.loads(request.data))
+    return jsonify(record.to_dict())
+  except:
+    return 'delete failed', 400
+
 
 @app.route('/user/<uid>', methods=['DELETE'])
 def del_user (uid):
-  User.delete_record(uid)
-  return '', 200
+  try: 
+    User.delete_record(uid)
+    return ''
+  except:
+    return 'deleted', 404
   
 

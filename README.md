@@ -59,3 +59,14 @@ $ supervisorctl shutdown
 (venv)$ pip freeze > requirements.txt
 ```
 
+## Feature
+
+- [x] configure env for Development, Testing and Production
+  - `config`
+- [x] route's demo 
+  - `application.routes.demo`
+- [x] SQLAlchemy's demo with sqlite 
+  - `application.models.user` 
+  - `application.routes.user`
+- [ ] schedule's demo
+- [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
