@@ -3,8 +3,11 @@
 ## Startup
 
 ``` bash
-# linux: source venv/bin/activate
-# windows: venv\Scripts\activate
+$ python3 -m venv venv
+
+$ source venv/bin/activate # linux: 
+$ venv\Scripts\activate # windows: 
+
 (venv)$ pip install -r requirements.txt
 ```
 
