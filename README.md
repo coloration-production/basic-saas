@@ -9,6 +9,11 @@ $ source venv/bin/activate # linux:
 $ venv\Scripts\activate # windows: 
 
 (venv)$ pip install -r requirements.txt
+
+$ sqlite3
+> .open db.sqlite
+> .databases # to check
+> .quit
 ```
 
 ### develop
@@ -73,3 +78,4 @@ $ supervisorctl shutdown
   - `application.routes.user`
 - [ ] schedule's demo
 - [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
+- [ ] for docker
