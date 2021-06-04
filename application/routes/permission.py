@@ -6,35 +6,32 @@ from application.models.permission import Permission
 import json
 
 @app.route('/permissions', methods=['GET'])
-def list ():
-  try:
-    record_dicts = []
+def permission_list ():
+  # try:
 
-    for i, record in enumerate(Permission.list_records()):
-      record_dicts.append(record.to_dict())
+    permissions = Permission.list_records(**request.args)
 
-    return jsonify(record_dicts)
-  except:
-    return 'query failed', 404
+    return jsonify([p.to_dict() for p in permissions])
+  # except:
+  #   return 'query failed', 404
 
-@app.route('/permission/<id>', methods=['GET'])
-def query (id):
+@app.route('/permission', methods=['GET'])
+def permission_query ():
 
   try: 
-    record = Permission().query_record(id) 
+    record = Permission().query_record(**request.args) 
 
     return jsonify(record.to_dict())
 
   except:
     return 'query failed', 404
 
-@app.route('/permission/<uname>', methods=['POST'])
-def create (uname):
+@app.route('/permission', methods=['POST'])
+def permission_create ():
   
   try:
-    per = Permission()
-    per.name = uname
-    record = per.create_record(uname)
+    schema = json.loads(request.data)
+    record = Permission.create_record(**schema)
 
     return jsonify(record.to_dict()), 201
 
@@ -42,20 +39,22 @@ def create (uname):
     return 'create failed', 400
 
 @app.route('/permission/<id>', methods=['PATCH'])
-def modify (id):
+def permission_modify (id):
   try:
-    record = Permission.modify_record(id, json.loads(request.data))
+
+    schema = json.loads(request.data)
+    record = Permission.modify_record(id, schema)
     return jsonify(record.to_dict())
   except:
-    return 'delete failed', 400
+    return 'modify failed', 400
 
 
 @app.route('/permission/<id>', methods=['DELETE'])
-def del (id):
+def permission_delete (id):
   try: 
-    Permission.delete_record(id)
+    Permission.delete_record(id = id)
     return ''
   except:
-    return 'deleted', 404
+    return 'delete failed', 404
   
 

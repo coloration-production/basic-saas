@@ -17,6 +17,8 @@ logger.setLevel(logging.INFO)
 
 
 import application.routes.user
+import application.routes.permission
+import application.routes.role
 
 # after Model defined
 db.create_all()

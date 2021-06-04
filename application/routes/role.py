@@ -6,35 +6,29 @@ from application.models.role import Role
 import json
 
 @app.route('/roles', methods=['GET'])
-def list ():
+def role_list ():
   try:
-    record_dicts = []
-
-    for i, record in enumerate(Role.list_records()):
-      record_dicts.append(record.to_dict())
-
-    return jsonify(record_dicts)
+    res = [r.to_dict(rules=('-users',)) for r in Role.list_records(**request.args)]
+    return jsonify(res)
   except:
     return 'query failed', 404
 
-@app.route('/role/<id>', methods=['GET'])
-def query (id):
+@app.route('/role', methods=['GET'])
+def role_query ():
 
   try: 
-    record = Role().query_record(id) 
-
-    return jsonify(record.to_dict())
+    record = Role().query_record(**request.args) 
+    return record.to_dict(rules=('-users.role',))
 
   except:
     return 'query failed', 404
 
-@app.route('/role/<name>', methods=['POST'])
-def create (name):
+@app.route('/role', methods=['POST'])
+def role_create ():
   
   try:
-    role = Role()
-    role.name = name
-    record = role.create_record(name)
+    schema = json.loads(request.data)
+    record = Role.create_record(**schema)
 
     return jsonify(record.to_dict()), 201
 
@@ -42,20 +36,22 @@ def create (name):
     return 'create failed', 400
 
 @app.route('/role/<id>', methods=['PATCH'])
-def modify (id):
+def role_modify (id):
   try:
-    record = Role.modify_record(id, json.loads(request.data))
-    return jsonify(record.to_dict())
+
+    schema = json.loads(request.data)
+    record = Role.modify_record(id, schema)
+    return jsonify(record.to_dict(rules = ('-users',)))
   except:
-    return 'delete failed', 400
+    return 'modify failed', 400
 
 
 @app.route('/role/<id>', methods=['DELETE'])
-def del (id):
+def role_delete (id):
   try: 
-    Role.delete_record(id)
+    Role.delete_record(id = id)
     return ''
   except:
-    return 'deleted', 404
+    return 'delete failed', 404
   
 
