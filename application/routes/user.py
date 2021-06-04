@@ -6,7 +6,7 @@ from application.models.user import User
 import json
 
 @app.route('/users', methods=['GET'])
-def list_users ():
+def list ():
   try:
     record_dicts = []
 
@@ -17,43 +17,43 @@ def list_users ():
   except:
     return 'query failed', 404
 
-@app.route('/user/<uid>', methods=['GET'])
-def query_user (uid):
+@app.route('/user/<id>', methods=['GET'])
+def query (id):
 
   try: 
-    record = User().query_record(uid) 
+    record = User().query_record(id) 
 
     return jsonify(record.to_dict())
 
   except:
     return 'query failed', 404
 
-@app.route('/user/<uname>', methods=['POST'])
-def create_user (uname):
+@app.route('/user/<name>', methods=['POST'])
+def create (name):
   
   try:
     user = User()
-    user.name = uname
-    record = user.create_record(uname)
+    user.name = name
+    record = user.create_record(name)
 
     return jsonify(record.to_dict()), 201
 
   except:
     return 'create failed', 400
 
-@app.route('/user/<uid>', methods=['PATCH'])
-def modify_user(uid):
+@app.route('/user/<id>', methods=['PATCH'])
+def modify (id):
   try:
-    record = User.modify_record(uid, json.loads(request.data))
+    record = User.modify_record(id, json.loads(request.data))
     return jsonify(record.to_dict())
   except:
     return 'delete failed', 400
 
 
-@app.route('/user/<uid>', methods=['DELETE'])
-def del_user (uid):
+@app.route('/user/<id>', methods=['DELETE'])
+def del (id):
   try: 
-    User.delete_record(uid)
+    User.delete_record(id = id)
     return ''
   except:
     return 'deleted', 404

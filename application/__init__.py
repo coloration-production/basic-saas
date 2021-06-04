@@ -7,7 +7,7 @@ import logging
 
 app = Flask(__name__)
 
-app.config.from_object('config.DevelopmentConfig')
+app.config.from_object('config.current')
 
 db = SQLAlchemy(app)
 
