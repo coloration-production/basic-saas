@@ -62,6 +62,8 @@ $ supervisorctl shutdown
 $ docker compose up -d
 ```
 
+Note: Configure Database.
+
 `<doing>`
 
 ## install packages
