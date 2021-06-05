@@ -75,8 +75,13 @@ $ supervisorctl shutdown
   - `application.routes.demo`
 - [x] SQLAlchemy's demo with sqlite 
   - `application.models.user` 
+  - `application.models.role` 
   - `application.routes.user`
+  - `application.routes.role`
+  - `application.routes.access`
 - [ ] schedule's demo
+- [ ] permissions
+- [x] JWT for RESTful
 - [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
 - [ ] for docker
 
