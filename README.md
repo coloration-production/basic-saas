@@ -58,6 +58,10 @@ $ supervisorctl shutdown
 
 2. docker
 
+``` bash
+$ docker compose up -d
+```
+
 `<doing>`
 
 ## install packages
@@ -83,7 +87,7 @@ $ supervisorctl shutdown
 - [ ] permissions
 - [x] JWT for RESTful
 - [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
-- [ ] for docker
+- [x] for docker
 
 
 ## Lib
