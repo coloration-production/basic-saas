@@ -42,3 +42,16 @@ class User (BaseEntity, SerializerMixin):
     db.session.commit()
 
     return record
+
+  @classmethod
+  def authenticate (User, name, pwd):
+    user = User.query_record(name = name)
+    if user and user.verify_password(pwd):
+      return user
+
+  @classmethod
+  def identity (User, payload):
+    id = payload['identity']
+    user = User.query_record(id = id)
+
+    return user 

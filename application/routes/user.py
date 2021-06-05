@@ -3,22 +3,20 @@
 from flask import jsonify, request
 from application import app
 from application.models.user import User
+from flask_jwt import jwt_required
 import json
 
 @app.route('/users', methods=['GET'])
+@jwt_required()
 def user_list ():
   try:
-    # record_dicts = []
-
-    # for i, record in enumerate(User.list_records(**request.args)):
-    #   record_dicts.append(record.to_dict())
-
     users = User.list_records(**request.args)
     return jsonify([u.to_dict(rules=('-role.users',)) for u in users])
   except:
     return 'query failed', 404
 
 @app.route('/user', methods=['GET'])
+@jwt_required()
 def user_query ():
 
   try: 
@@ -32,6 +30,7 @@ def user_query ():
     return 'query failed', 404
 
 @app.route('/user', methods=['POST'])
+@jwt_required()
 def user_create ():
   
   try:
@@ -44,6 +43,7 @@ def user_create ():
     return 'create failed', 400
 
 @app.route('/user/<id>', methods=['PATCH'])
+@jwt_required()
 def user_modify (id):
   try:
     schema = json.loads(request.data)
@@ -57,6 +57,7 @@ def user_modify (id):
 
 
 @app.route('/user/<id>', methods=['DELETE'])
+@jwt_required()
 def user_delete (id):
   try: 
     User.delete_record(id = id)

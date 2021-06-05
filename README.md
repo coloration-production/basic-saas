@@ -79,3 +79,8 @@ $ supervisorctl shutdown
 - [ ] schedule's demo
 - [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
 - [ ] for docker
+
+
+## Lib
+
+- [Flask-JWT](https://pythonhosted.org/Flask-JWT/)

@@ -2,7 +2,6 @@
 
 from application import db
 
-
 class BaseEntity (db.Model):
 
   """ don't create table in db """
