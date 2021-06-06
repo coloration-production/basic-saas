@@ -1,6 +1,10 @@
 <script lang="ts">
 import { useToggle } from '@vueuse/core'
-import { defineComponent, onBeforeUnmount, watch } from 'vue'
+import { defineComponent, onBeforeUnmount, PropType, watch, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import IconDashboard from '~/components/IconDashboard.vue'
+import IconTeam from '~/components/IconTeam.vue'
+import { SidebarItem } from '~/types/views'
 
 export default defineComponent({
   props: {
@@ -9,21 +13,44 @@ export default defineComponent({
       default: true,
     },
     items: {
-      type: Array,
-      default: () => ([]),
+      type: Array as PropType<SidebarItem[]>,
+      default: () => ([
+        { name: 'Dashboard', icon: IconDashboard, value: '/dashboard' },
+        {
+          name: 'Permission',
+          icon: IconTeam,
+          value: '/permission',
+          children: [
+            { name: 'Roles', value: '/permission/roles' },
+            { name: 'Users', value: '/permission/users' },
+          ],
+        },
+        { name: 'Settings', value: '/settings', icon: IconDashboard, tips: 6 },
+      ]),
     },
   },
-  setup(props) {
+  setup() {
     const barWidth = 256
     const [pinned, toggle] = useToggle(true)
+    const route = useRoute()
+    const expandKeys = ref<string[]>([])
+
+    function toggleExpandKey(key: SidebarItem['value']) {
+      const idx = expandKeys.value.indexOf(key)
+      if (idx < 0) expandKeys.value.push(key)
+      else expandKeys.value.splice(idx, 1)
+    }
+
     watch(pinned, () => {
-      document.documentElement.style.setProperty('--sidebar-offset-width', `${pinned.value ? barWidth : 0}px`);
+      document.documentElement.style.setProperty('--sidebar-offset-width', `${pinned.value ? barWidth : 0}px`)
     }, { immediate: true })
+
     onBeforeUnmount(() => {
-      document.documentElement.style.setProperty('--sidebar-offset-width', '0px');
+      document.documentElement.style.setProperty('--sidebar-offset-width', '0px')
     })
+
     return {
-      barWidth, toggle, pinned,
+      barWidth, toggle, pinned, route, expandKeys, toggleExpandKey,
     }
   },
 })
@@ -52,57 +79,42 @@ export default defineComponent({
         <div class="flex-1">
           <h3 class="text-xs uppercase text-gray-500 font-semibold mb-3">Pages</h3>
           <ul>
-            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-900">
-              <router-link
-                to="/"
-                class="block text-gray-200 hover:text-white transition duration-150"
-              >
+            <li
+              v-for="item in items"
+              :key="item.name"
+              class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 text-gray-200 hover:text-white hover:bg-gray-900 transition"
+              :class="route.path.startsWith(item.value) ? 'bg-gray-900' : ''"
+            >
+              <router-link :to="item.children ? '' : item.value" @click="item.children && toggleExpandKey(item.value)">
                 <div class="flex flex-grow items-center">
-                  <IconDashboard class="flex-shrink-0 h-6 w-6 mr-3" active />
-                  <span class="text-sm font-medium flex-1">Dashboard</span>
-                </div>
-              </router-link>
-            </li>
-            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
-              <router-link
-                to="/"
-                class="block text-gray-200 hover:text-white transition duration-150"
-              >
-                <div class="flex flex-grow items-center">
-                  <IconCustomers class="flex-shrink-0 h-6 w-6 mr-3" />
-                  <span class="text-sm font-medium flex-1">Customers</span>
+                  <component
+                    :is="item.icon"
+                    class="flex-shrink-0 h-6 w-6 mr-3"
+                    :active="route.path.startsWith(item.value)"
+                  />
+                  <span class="text-sm font-medium flex-1">{{ item.name }}</span>
+                  <akar-icons-chevron-up
+                    v-if="item.children && expandKeys.includes(item.value)"
+                    class="text-sm mr-1"
+                  />
+                  <akar-icons-chevron-down
+                    v-if="item.children && !expandKeys.includes(item.value)"
+                    class="text-sm mr-1"
+                  />
                   <span
+                    v-if="item.tips && item.tips > 0"
                     class="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded-sm"
-                  >4</span>
+                  >{{ item.tips }}</span>
                 </div>
               </router-link>
-            </li>
-            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-900">
-              <router-link
-                to="/"
-                class="block text-gray-200 hover:text-white transition duration-150"
-              >
-                <div class="flex flex-grow items-center">
-                  <svg class="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      class="fill-current false text-indigo-500"
-                      d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z"
-                    />
-                    <path
-                      class="fill-current false text-indigo-300"
-                      d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z"
-                    />
-                  </svg>
-                  <span class="text-sm font-medium flex-1">權限管理</span>
-                  <akar-icons-chevron-down class="text-sm mr-1" />
-                </div>
-              </router-link>
-              <ul class="pl-9 mt-1">
-                <li class="mb-1 block hover:text-indigo-400 text-gray-200">
-                  <router-link to="/" class="text-sm">角色管理</router-link>
-                </li>
-                <li class="mb-1 block hover:text-indigo-400 text-gray-200">
-                  <router-link to="/" class="text-sm">用戶管理</router-link>
+              <ul v-if="item.children && expandKeys.includes(item.value)" class="pl-9 mt-1">
+                <li
+                  v-for="sub in item.children"
+                  :key="sub.value"
+                  class="mb-1 block hover:text-indigo-400 text-gray-200 transition"
+                  :class="sub.value === route.path ? 'text-indigo-400' : 'text-gray-200'"
+                >
+                  <router-link :to="sub.value" class="block text-sm">{{ sub.name }}</router-link>
                 </li>
               </ul>
             </li>
@@ -117,7 +129,17 @@ export default defineComponent({
     </div>
     <!-- shadow  -->
     <div
-      class="fixed inset-0 bg-gray-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 opacity-0 pointer-events-none"
-    />
+      class="fixed inset-0 bg-gray-900 z-30 lg:hidden lg:z-auto transition-opacity duration-200 opacity-0 pointer-events-none"
+    >
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+      <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+    </div>
+
   </div>
 </template>

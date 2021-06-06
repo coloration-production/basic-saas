@@ -3,9 +3,11 @@
 from flask import jsonify, request
 from application import app
 from application.models.role import Role
+from flask_jwt import jwt_required
 import json
 
 @app.route('/roles', methods=['GET'])
+@jwt_required()
 def role_list ():
   try:
     res = [r.to_dict(rules=('-users',)) for r in Role.list_records(**request.args)]
@@ -14,6 +16,7 @@ def role_list ():
     return 'query failed', 404
 
 @app.route('/role', methods=['GET'])
+@jwt_required()
 def role_query ():
 
   try: 
@@ -24,6 +27,7 @@ def role_query ():
     return 'query failed', 404
 
 @app.route('/role', methods=['POST'])
+@jwt_required()
 def role_create ():
   
   try:
@@ -36,6 +40,7 @@ def role_create ():
     return 'create failed', 400
 
 @app.route('/role/<id>', methods=['PATCH'])
+@jwt_required()
 def role_modify (id):
   try:
 
@@ -47,6 +52,7 @@ def role_modify (id):
 
 
 @app.route('/role/<id>', methods=['DELETE'])
+@jwt_required()
 def role_delete (id):
   try: 
     Role.delete_record(id = id)

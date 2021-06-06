@@ -1,10 +1,13 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { accessApi, SigninPayload } from '~/api'
+import { accessApi } from '~/api'
+import { useUser } from '~/logic'
+import { SigninPayload, SigninDto } from '~/types'
 export default defineComponent({
   setup() {
     const router = useRouter()
+    const { setUser } = useUser()
     const param = ref<SigninPayload>({
       name: 'David',
       pwd: '123456',
@@ -20,8 +23,9 @@ export default defineComponent({
       if (disabled.value) return
 
       accessApi.signin(param.value)
-        .then(() => {
-          router.push('/')
+        .then((dto: SigninDto) => {
+          setUser(dto)
+          router.push('/dashboard')
         })
     }
 
