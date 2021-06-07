@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { roleApi } from '~/api'
-import { RoleDto } from '~/types'
+import { userApi } from '~/api'
+import { UserDto } from '~/types'
 
 export default defineComponent({
   props: {
@@ -13,41 +13,44 @@ export default defineComponent({
   },
   setup(props) {
     const router = useRouter()
-    const role = ref<Partial<RoleDto>>({
+    const user = ref<Partial<UserDto>>({
       name: '',
-      alias: '',
+      role_id: 1,
       status: 1,
     })
 
-    const rid = computed(() => Number(props.id) || 0)
-    const title = computed(() => rid.value === 0 ? 'Create Role' : `Edit Role #${rid.value}`)
+    const uid = computed(() => Number(props.id) || 0)
+    const title = computed(() => uid.value === 0 ? 'Create User' : `Edit User #${uid.value}`)
 
-    watch(rid, () => {
-      if (rid.value === 0) return
+    watch(uid, () => {
+      if (uid.value === 0) return
 
-      roleApi.getRole(rid.value)
+      userApi.getUser(uid.value)
         .then((res) => {
-          const { name, status, alias } = res
-          role.value = { name, status, alias }
+          const { name, role_id, status } = res
+
+          user.value = {
+            name, role_id, status,
+          }
         })
     }, { immediate: true })
 
     function handleSubmit(e: Event) {
       e.preventDefault()
 
-      const rolePromise = rid.value === 0
-        ? roleApi.createRole(role.value)
-        : roleApi.modifyRole(rid.value, role.value)
+      const userPromise = uid.value === 0
+        ? userApi.createUser(user.value)
+        : userApi.modifyUser(uid.value, user.value)
 
-      rolePromise.then(() => {
+      userPromise.then(() => {
         // console.log(title.value + 'success !')
-        router.replace('/permission/roles')
+        router.replace('/permission/users')
       })
     }
 
     return {
-      role,
-      rid,
+      user,
+      uid,
       title,
       handleSubmit,
     }
@@ -57,21 +60,21 @@ export default defineComponent({
 <template>
   <div>
     <PageHead :title="title" class="mb-8">
-      <router-link class="btn" to="/permission/roles">Back</router-link>
+      <router-link class="btn" to="/permission/users">Back</router-link>
     </PageHead>
     <ContentBox class="p-6">
       <form :onsubmit="handleSubmit">
         <div class="lg:w-1/3 md:w-1/2 w-full">
           <div class="mb-8">
             <label for="name" class="block text-sm font-medium mb-1">Name</label>
-            <input id="name" v-model="role.name" type="text" class="w-full outline-none form-input" />
+            <input id="name" v-model="user.name" type="text" class="w-full outline-none form-input" />
           </div>
           <div class="mb-8">
-            <label for="alias" class="block text-sm font-medium mb-1">Alias</label>
+            <label for="role" class="block text-sm font-medium mb-1">Role</label>
             <input
-              id="alias"
-              v-model="role.alias"
-              type="text"
+              id="role"
+              v-model="user.role_id"
+              type="number"
               class="w-full outline-none form-input"
             />
           </div>
@@ -79,7 +82,7 @@ export default defineComponent({
             <label for="status" class="block text-sm font-medium mb-1">status</label>
             <input
               id="status"
-              v-model="role.status"
+              v-model="user.status"
               type="number"
               class="w-full outline-none form-input"
             />

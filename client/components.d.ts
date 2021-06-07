@@ -3,6 +3,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ContentBox: typeof import('./src/components/ContentBox.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     IconCustomers: typeof import('./src/components/IconCustomers.vue')['default']

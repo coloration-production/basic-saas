@@ -22,7 +22,9 @@ export default defineComponent({
 <template>
   <div>
     <PageHead title="Role" class="mb-8">
-      <router-link class="btn" to="/permission/roles/0">Add Role</router-link>
+      <router-link to="/permission/roles/0">
+        <Button>Add Role</Button>
+      </router-link>
     </PageHead>
 
     <ContentBox>
@@ -33,9 +35,7 @@ export default defineComponent({
         </h2>
         <div class="pagination text-blue-gray-300 text-sm">
           <ul class="flex">
-            <li class="px-0.5" v-for="i in 5" :key="i">
-              {{ i }}
-            </li>
+            <li v-for="i in 5" :key="i" class="px-0.5">{{ i }}</li>
           </ul>
         </div>
       </header>
@@ -56,7 +56,6 @@ export default defineComponent({
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.status }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">
                 <router-link :to="`/permission/roles/${r.id}`">Edit</router-link>
-
               </td>
             </tr>
           </tbody>

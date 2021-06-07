@@ -13,7 +13,7 @@ function createRole(role: Partial<RoleDto>) {
   return base.post<RoleDto>('/role', role)
 }
 
-function modifyRole (id: number, role: Partial<RoleDto>) {
+function modifyRole(id: number, role: Partial<RoleDto>) {
   return base.patch<RoleDto>(`/role/${id}`, role)
 }
 

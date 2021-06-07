@@ -25,6 +25,15 @@ export default defineComponent({
             { name: 'Users', value: '/permission/users' },
           ],
         },
+        {
+          name: 'Monitor',
+          value: '/monitor',
+          icon: IconDashboard,
+          children: [
+            { name: 'Cameras', value: '/monitor/cameras' },
+            { name: 'Screens', value: '/monitor/screens' },
+          ],
+        },
         { name: 'Settings', value: '/settings', icon: IconDashboard, tips: 6 },
       ]),
     },
@@ -85,7 +94,10 @@ export default defineComponent({
               class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 text-gray-200 hover:text-white hover:bg-gray-900 transition"
               :class="route.path.startsWith(item.value) ? 'bg-gray-900' : ''"
             >
-              <router-link :to="item.children ? '' : item.value" @click="item.children && toggleExpandKey(item.value)">
+              <router-link
+                :to="item.children ? '' : item.value"
+                @click="item.children && toggleExpandKey(item.value)"
+              >
                 <div class="flex flex-grow items-center">
                   <component
                     :is="item.icon"
@@ -111,7 +123,7 @@ export default defineComponent({
                 <li
                   v-for="sub in item.children"
                   :key="sub.value"
-                  class="mb-1 block hover:text-indigo-400 text-gray-200 transition"
+                  class="py-1 block hover:text-indigo-400 text-gray-200 transition"
                   :class="route.path.startsWith(sub.value) ? 'text-indigo-400' : 'text-gray-200'"
                 >
                   <router-link :to="sub.value" class="block text-sm">{{ sub.name }}</router-link>
@@ -140,6 +152,5 @@ export default defineComponent({
       <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
       <p>wswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
     </div>
-
   </div>
 </template>

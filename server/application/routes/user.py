@@ -51,7 +51,7 @@ def user_modify (id):
     if 'pwd' in schema: del schema['pwd']
 
     record = User.modify_record(id, schema)
-    return jsonify(record.to_dict('-pwd', '-role.users'))
+    return jsonify(record.to_dict(rules=('-pwd', '-role.users')))
   except:
     return 'modify failed', 400
 
