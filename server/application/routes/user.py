@@ -11,7 +11,7 @@ import json
 def user_list ():
   try:
     users = User.list_records(**request.args)
-    return jsonify([u.to_dict(rules=('-role.users',)) for u in users])
+    return jsonify([u.to_dict(rules=('-role.users', '-pwd')) for u in users])
   except:
     return 'query failed', 404
 

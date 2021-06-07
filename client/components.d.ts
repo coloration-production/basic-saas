@@ -8,6 +8,7 @@ declare module 'vue' {
     IconCustomers: typeof import('./src/components/IconCustomers.vue')['default']
     IconDashboard: typeof import('./src/components/IconDashboard.vue')['default']
     IconTeam: typeof import('./src/components/IconTeam.vue')['default']
+    PageHead: typeof import('./src/components/PageHead.vue')['default']
     README: typeof import('./src/components/README.md')['default']
     Sidebar: typeof import('./src/components/Sidebar.vue')['default']
   }

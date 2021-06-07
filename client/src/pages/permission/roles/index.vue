@@ -21,8 +21,48 @@ export default defineComponent({
 </script>
 <template>
   <div>
-    roles
-    <div v-for="r in roles" :key="r.id">{{ r }}</div>
+    <PageHead title="Role" class="mb-8">
+      <router-link class="btn" to="/permission/roles/0">Add Role</router-link>
+    </PageHead>
+
+    <ContentBox>
+      <header class="px-5 py-4 flex justify-between items-center">
+        <h2 class="font-semibold">
+          All Roles
+          <span class="font-medium text-blue-gray-400">{{ roles.length }}</span>
+        </h2>
+        <div class="pagination text-blue-gray-300 text-sm">
+          <ul class="flex">
+            <li class="px-0.5" v-for="i in 5" :key="i">
+              {{ i }}
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div class="p-3 border-t border-gray-100">
+        <table class="w-full table-auto">
+          <thead class="text-xs font-semibold uppercase text-gray-500 bg-gray-50">
+            <tr>
+              <th class="p-2 whitespace-nowrap font-semibold text-left">id</th>
+              <th class="p-2 whitespace-nowrap font-semibold text-left">name</th>
+              <th class="p-2 whitespace-nowrap font-semibold text-left">status</th>
+              <th class="p-2 whitespace-nowrap font-semibold text-left">operation</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm divide-y divide-gray-100">
+            <tr v-for="r in roles" :key="r.id">
+              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.id }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.alias }} {{ r.name }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.status }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">
+                <router-link :to="`/permission/roles/${r.id}`">Edit</router-link>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ContentBox>
   </div>
 </template>
 <route lang="yaml">

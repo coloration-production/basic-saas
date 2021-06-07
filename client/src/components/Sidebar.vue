@@ -112,7 +112,7 @@ export default defineComponent({
                   v-for="sub in item.children"
                   :key="sub.value"
                   class="mb-1 block hover:text-indigo-400 text-gray-200 transition"
-                  :class="sub.value === route.path ? 'text-indigo-400' : 'text-gray-200'"
+                  :class="route.path.startsWith(sub.value) ? 'text-indigo-400' : 'text-gray-200'"
                 >
                   <router-link :to="sub.value" class="block text-sm">{{ sub.name }}</router-link>
                 </li>

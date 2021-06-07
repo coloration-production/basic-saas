@@ -1,9 +1,10 @@
-import { Asker } from '@coloration/asker'
+import { Asker, HttpStatus } from '@coloration/asker'
 import { } from 'vue-router'
-import { SigninDto, STORAGE_SIGN } from '../types'
+import { SigninDto, STORAGE_SIGN } from '~/types'
 
 export const base = new Asker({
   baseUrl: 'http://localhost:5678',
+  errorResponseType: 'json',
   before: (conf) => {
     if (conf.url === '/signin') return conf
 
@@ -18,11 +19,13 @@ export const base = new Asker({
     return conf
   },
   after: (res) => {
-    if (res.status === 401) {
-      localStorage.setItem('@@user', '{}')
-      return
-    }
-
     return res.data
+  },
+  catcher: (e) => {
+    if (e.status === HttpStatus.unauthorized) {
+      localStorage.setItem(STORAGE_SIGN, '{}')
+      const { protocol, host } = window.location
+      window.location.href = `${protocol}//${host}/access/signin`
+    }
   },
 })

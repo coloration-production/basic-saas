@@ -939,10 +939,10 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@coloration/asker@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.nlark.com/@coloration/asker/download/@coloration/asker-1.0.1.tgz#a5859f088388a9bd5067ef345aa9f4647e737444"
-  integrity sha1-pYWfCIOIqb1QZ+80Wqn0ZH5zdEQ=
+"@coloration/asker@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@coloration/asker/-/asker-1.1.2.tgz#5e3f32a8cf4153064362ebe942032dedea0b2905"
+  integrity sha512-G+ISf5wJelf3xo+BNXCdS6w868vimQKeI4Fwdi7FaH4mZqU6c4ksoz1o5KoNO+JyJa2hxDhHlm5Rg/GB0za03Q==
 
 "@emmetio/abbreviation@^2.2.2":
   version "2.2.2"
