@@ -11,6 +11,7 @@ class Role (BaseEntity, SerializerMixin):
   name = db.Column(db.String(16))
   alias = db.Column(db.String(16))
   users = db.relationship('User', backref = 'role', lazy = 'dynamic')
+  permissions = db.Column(db.String(256), default = '')
 
   def __repr__(self) -> str:
       return '<Role {}:{}>'.format(self.id, self.name)

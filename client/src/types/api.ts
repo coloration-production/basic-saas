@@ -1,23 +1,33 @@
+
 export enum BaseStatus {
+  delete = 0,
   enable = 1,
-  disable = 0
+  disable = 2
 }
 
-export interface RoleDto {
+export interface BaseDto {
   id: number
-  name: string
-  alias: string
   status: BaseStatus
 }
 
-export interface UserDto {
-  id: number
+export interface RoleDto extends BaseDto {
+  name: string
+  alias: string
+}
+
+export interface UserDto extends BaseDto {
   name: string
   pwd?: string
   role: RoleDto
   role_id: number
-  status: BaseStatus
   created: string
+}
+
+export interface PermissionDto extends BaseDto {
+  id: number
+  pid: number
+  name: string
+  alias: string
 }
 
 export interface SigninPayload {

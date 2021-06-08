@@ -6,12 +6,15 @@ from application.models.user import User
 from flask_jwt import jwt_required
 import json
 
+def formart_response_dict (record, rules = ('-role.users', '-pwd')):
+  return record.to_dict(rules = rules)
+
 @app.route('/users', methods=['GET'])
 @jwt_required()
 def user_list ():
   try:
     users = User.list_records(**request.args)
-    return jsonify([u.to_dict(rules=('-role.users', '-pwd')) for u in users])
+    return jsonify([formart_response_dict(u) for u in users])
   except:
     return 'query failed', 404
 
@@ -20,11 +23,8 @@ def user_list ():
 def user_query ():
 
   try: 
-    record = User().query_record(**request.args) 
-
-    return jsonify(record.to_dict(
-      rules=('-pwd', '-role.users')
-    ))
+    record = User.query_record(**request.args) 
+    return formart_response_dict(record)
 
   except:
     return 'query failed', 404
@@ -37,7 +37,7 @@ def user_create ():
     schema = json.loads(request.data)
     record = User.create_record(**schema)
 
-    return jsonify(record.to_dict(rules=('-pwd', '-role.users'))), 201
+    return formart_response_dict(record), 201
 
   except:
     return 'create failed', 400
@@ -51,7 +51,7 @@ def user_modify (id):
     if 'pwd' in schema: del schema['pwd']
 
     record = User.modify_record(id, schema)
-    return jsonify(record.to_dict(rules=('-pwd', '-role.users')))
+    return formart_response_dict(record)
   except:
     return 'modify failed', 400
 
@@ -59,10 +59,10 @@ def user_modify (id):
 @app.route('/user/<id>', methods=['DELETE'])
 @jwt_required()
 def user_delete (id):
-  try: 
+  # try: 
     User.delete_record(id = id)
     return ''
-  except:
-    return 'deleted', 404
+  # except:
+  #   return 'deleted', 404
 
 

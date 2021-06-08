@@ -29,3 +29,31 @@ export const base = new Asker({
     }
   },
 })
+
+export class BaseEntityApi<T> {
+  path: string
+
+  constructor(path: string) {
+    this.path = path
+  }
+
+  list(filter?: Partial<T>) {
+    return base.get<T[]>(`${this.path}s`, filter)
+  }
+
+  get(id: number) {
+    return base.get<T>(this.path, { id })
+  }
+
+  create(role: Partial<T>) {
+    return base.post<T>(this.path, role)
+  }
+
+  modify(id: number, role: Partial<T>) {
+    return base.patch<T>(`${this.path}/${id}`, role)
+  }
+
+  delete(id: number) {
+    return base.delete(`${this.path}/${id}`)
+  }
+}

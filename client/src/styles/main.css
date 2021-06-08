@@ -52,7 +52,7 @@ html.dark {
 }
 
 .btn {
-  @apply px-3 py-2 rounded inline-block text-center
+  @apply px-3 py-2 rounded-sm inline-block text-center
     text-white cursor-pointer
     disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50;
 

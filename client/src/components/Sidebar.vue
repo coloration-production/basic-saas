@@ -21,6 +21,7 @@ export default defineComponent({
           icon: IconTeam,
           value: '/permission',
           children: [
+            { name: 'Permission', value: '/permission/permissions' },
             { name: 'Roles', value: '/permission/roles' },
             { name: 'Users', value: '/permission/users' },
           ],

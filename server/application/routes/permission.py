@@ -11,7 +11,7 @@ def permission_list ():
 
     permissions = Permission.list_records(**request.args)
 
-    return jsonify([p.to_dict() for p in permissions])
+    return jsonify([p.to_dict(rules = ('-status',)) for p in permissions])
   # except:
   #   return 'query failed', 404
 
@@ -21,7 +21,7 @@ def permission_query ():
   try: 
     record = Permission().query_record(**request.args) 
 
-    return jsonify(record.to_dict())
+    return jsonify(record.to_dict(rules = ('-status',)))
 
   except:
     return 'query failed', 404

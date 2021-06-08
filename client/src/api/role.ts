@@ -1,5 +1,5 @@
 import { base } from './base'
-import { RoleDto } from '~/types/api'
+import { RoleDto } from '~/types'
 
 function roles(filter?: Partial<RoleDto>) {
   return base.get<RoleDto[]>('/roles', filter)

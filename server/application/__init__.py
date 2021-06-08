@@ -23,6 +23,7 @@ logger.setLevel(logging.INFO)
 
 import application.jwt
 
+import application.routes.config
 import application.routes.user
 import application.routes.permission
 import application.routes.role
