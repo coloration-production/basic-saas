@@ -9,18 +9,21 @@ import json
 def format_request_params (params_json):
   params = json.loads(params_json)
   
-  try:
-    try:
-      params['permissions'] = ','.join([str(p) for p in params['permissions']])
-    except Exception as e:
+  if 'permissions' in params:
+    if isinstance(params['permissions'], list):
+      try:
+        params['permissions'] = ','.join([str(p) for p in params['permissions']])
+      except:
+        del params['permissions']
+    else:
       del params['permissions']
-  except:
-    pass
   
   return params 
 
 def formart_response_dict (record, rules = ('-users', )):
   d = record.to_dict(rules = rules)
+
+  print(d['permissions'])
   if len(d['permissions']) == 0:
     d['permissions'] = []
   else:
@@ -32,11 +35,11 @@ def formart_response_dict (record, rules = ('-users', )):
 @app.route('/roles', methods=['GET'])
 @jwt_required()
 def role_list ():
-  try:
+  # try:
     res = [formart_response_dict(r) for r in Role.list_records(**request.args)]
     return jsonify(res)
-  except:
-    return 'query failed', 404
+  # except:
+  #   return 'query failed', 404
 
 @app.route('/role', methods=['GET'])
 @jwt_required()

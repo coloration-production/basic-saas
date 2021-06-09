@@ -22,8 +22,8 @@ export default defineComponent({
 <template>
   <div>
     <PageHead title="Permission" class="mb-8">
-      <router-link to="/permission/permission/0">
-        <Button>Add Permission</Button>
+      <router-link to="/permission/permissions/0">
+        <NButton type="primary">Add Permission</NButton>
       </router-link>
     </PageHead>
     <ContentBox>
@@ -61,7 +61,3 @@ export default defineComponent({
     </ContentBox>
   </div>
 </template>
-<route lang="yaml">
-meta:
-  layout: home
-</route>

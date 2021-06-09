@@ -2,19 +2,24 @@
 import { defineComponent, ref } from 'vue'
 import { userApi } from '~/api'
 import { UserDto } from '~/types'
+import { useStatusOptions } from '~/logic'
+import { filterNameByOptions } from '~/util'
 
 export default defineComponent({
   setup() {
     const users = ref<UserDto[]>([])
+    const { defaultOptions } = useStatusOptions()
 
     function fetchList() {
-      userApi.users().then(res => users.value = res)
+      userApi.list().then(res => users.value = res)
     }
 
     fetchList()
 
     return {
       users,
+      statusFilter: filterNameByOptions(defaultOptions),
+
     }
   },
 })
@@ -56,7 +61,7 @@ export default defineComponent({
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ u.id }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ u.name }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ u.role.alias }} {{ u.role.name }}</td>
-              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ u.status }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ statusFilter(u.status) }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">
                 <router-link :to="`/permission/users/${u.id}`">Edit</router-link>
               </td>
@@ -67,7 +72,3 @@ export default defineComponent({
     </ContentBox>
   </div>
 </template>
-<route lang="yaml">
-meta:
-  layout: home
-</route>

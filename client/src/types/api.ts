@@ -13,6 +13,7 @@ export interface BaseDto {
 export interface RoleDto extends BaseDto {
   name: string
   alias: string
+  permissions: number[]
 }
 
 export interface UserDto extends BaseDto {

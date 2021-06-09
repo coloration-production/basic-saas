@@ -88,3 +88,7 @@ export default defineComponent({
     </div>
   </div>
 </template>
+<route lang="yaml">
+meta:
+  layout: empty
+</route>

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch, ComponentOptions } from 'vue'
 import { useRouter } from 'vue-router'
-import { permissionApi, roleApi } from '~/api'
+import { permissionApi } from '~/api'
 import { useStatusOptions } from '~/logic'
-import { RoleDto } from '~/types'
+import { PermissionDto } from '~/types'
 import { mapOptions } from '~/util'
 export default defineComponent({
   props: {
@@ -18,15 +18,14 @@ export default defineComponent({
 
     const { defaultOptions } = useStatusOptions()
 
-    const role = ref<Partial<RoleDto>>({
+    const permission = ref<Partial<PermissionDto>>({
       name: '',
       alias: '',
       status: 1,
-      permissions: [],
     })
 
     const rid = computed(() => Number(props.id) || 0)
-    const title = computed(() => rid.value === 0 ? 'Create Role' : `Edit Role #${rid.value}`)
+    const title = computed(() => rid.value === 0 ? 'Create Permission' : `Edit Permission #${rid.value}`)
     const permissionOptions = ref<ComponentOptions>([])
     const rules = {
       name: [
@@ -41,13 +40,13 @@ export default defineComponent({
     watch(rid, () => {
       if (rid.value === 0) return
 
-      roleApi.get(rid.value)
+      permissionApi.get(rid.value)
         .then((res) => {
           const { name, status, alias } = res
-          role.value = { name, status, alias }
+          permission.value = { name, status, alias }
         })
 
-      permissionApi.list().then(res => permissionOptions.value = mapOptions(res, 'alias', 'id'))
+      permissionApi.list().then(res => permissionOptions.value = mapOptions(res))
     }, { immediate: true })
 
     function handleSubmit(e: Event) {
@@ -57,19 +56,19 @@ export default defineComponent({
 
       // })
 
-      const rolePromise = rid.value === 0
-        ? roleApi.create(role.value)
-        : roleApi.modify(rid.value, role.value)
+      const permissionPromise = rid.value === 0
+        ? permissionApi.create(permission.value)
+        : permissionApi.modify(rid.value, permission.value)
 
-      rolePromise.then(() => {
+      permissionPromise.then(() => {
         // console.log(title.value + 'success !')
-        router.replace('/permission/roles')
+        router.replace('/permission/permissions')
       })
     }
 
     return {
       formRef,
-      model: role,
+      model: permission,
       rid,
       title,
       rules,
@@ -83,9 +82,7 @@ export default defineComponent({
 <template>
   <div>
     <PageHead :title="title" class="mb-8">
-      <router-link to="/permission/roles">
-        <NButton type="primary">Back</NButton>
-      </router-link>
+      <router-link class="btn" to="/permission/permissions">Back</router-link>
     </PageHead>
     <ContentBox class="p-6">
       <div class="lg:w-1/3 md:w-1/2">
@@ -96,10 +93,7 @@ export default defineComponent({
           <NFormItemRow path="alias" label="Alias">
             <NInput v-model:value="model.alias" @keydown.enter.prevent />
           </NFormItemRow>
-          <NFormItemRow path="permissions" label="Permissions">
-            <NSelect v-model:value="model.permissions" :options="permissionOptions" multiple />
-          </NFormItemRow>
-          <NFormItemRow path="status" label="Status">
+          <NFormItemRow path="status" label="Parent">
             <NSelect v-model:value="model.status" :options="defaultStatusOptions" />
           </NFormItemRow>
         </NForm>

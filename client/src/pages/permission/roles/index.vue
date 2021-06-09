@@ -1,20 +1,31 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { roleApi } from '~/api'
-import { RoleDto } from '~/types'
+import { permissionApi, roleApi } from '~/api'
+import { useStatusOptions } from '~/logic'
+import { PermissionDto, RoleDto } from '~/types'
+import { filterNameByOptions } from '~/util'
 
 export default defineComponent({
   setup() {
     const roles = ref<RoleDto[]>([])
+    const permissions = ref<PermissionDto[]>([])
+    const { defaultOptions } = useStatusOptions()
 
     function fetchList() {
-      roleApi.roles().then(res => roles.value = res)
+      roleApi.list().then(res => roles.value = res)
+      permissionApi.list().then(res => permissions.value = res)
+    }
+
+    function permissionFilter(id: PermissionDto['id']) {
+      return filterNameByOptions(permissions.value, 'name', 'id')(id)
     }
 
     fetchList()
 
     return {
       roles,
+      statusFilter: filterNameByOptions(defaultOptions),
+      permissionFilter,
     }
   },
 })
@@ -23,7 +34,7 @@ export default defineComponent({
   <div>
     <PageHead title="Role" class="mb-8">
       <router-link to="/permission/roles/0">
-        <Button>Add Role</Button>
+        <NButton type="primary">Create Role</NButton>
       </router-link>
     </PageHead>
 
@@ -46,6 +57,7 @@ export default defineComponent({
               <th class="p-2 whitespace-nowrap font-semibold text-left">id</th>
               <th class="p-2 whitespace-nowrap font-semibold text-left">name</th>
               <th class="p-2 whitespace-nowrap font-semibold text-left">status</th>
+              <th class="p-2 whitespace-nowrap font-semibold text-left">permissions</th>
               <th class="p-2 whitespace-nowrap font-semibold text-left">operation</th>
             </tr>
           </thead>
@@ -53,7 +65,10 @@ export default defineComponent({
             <tr v-for="r in roles" :key="r.id">
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.id }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.alias }} {{ r.name }}</td>
-              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ r.status }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">{{ statusFilter(r.status) }}</td>
+              <td class="p-2 whitespace-nowrap font-semibold text-left">
+                <span v-for="p in r.permissions" :key="p">{{ permissionFilter(p) }}</span>
+              </td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">
                 <router-link :to="`/permission/roles/${r.id}`">Edit</router-link>
               </td>
@@ -64,7 +79,3 @@ export default defineComponent({
     </ContentBox>
   </div>
 </template>
-<route lang="yaml">
-meta:
-  layout: home
-</route>

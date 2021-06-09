@@ -1,8 +1,10 @@
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue'
+import { defineComponent, ref, computed, watch, ComponentOptions } from 'vue'
 import { useRouter } from 'vue-router'
-import { userApi } from '~/api'
+import { roleApi, userApi } from '~/api'
 import { UserDto } from '~/types'
+import { useStatusOptions } from '~/logic'
+import { mapOptions } from '~/util'
 
 export default defineComponent({
   props: {
@@ -13,19 +15,33 @@ export default defineComponent({
   },
   setup(props) {
     const router = useRouter()
+    const formRef = ref(null)
+    const { defaultOptions } = useStatusOptions()
+
     const user = ref<Partial<UserDto>>({
       name: '',
       role_id: 1,
       status: 1,
     })
 
+    const rules = {
+      name: [
+        {
+          required: true,
+          message: 'require name',
+          trigger: ['input', 'blur'],
+        },
+      ],
+    }
+
     const uid = computed(() => Number(props.id) || 0)
     const title = computed(() => uid.value === 0 ? 'Create User' : `Edit User #${uid.value}`)
+    const roleOptions = ref<ComponentOptions>([])
 
     watch(uid, () => {
       if (uid.value === 0) return
 
-      userApi.getUser(uid.value)
+      userApi.get(uid.value)
         .then((res) => {
           const { name, role_id, status } = res
 
@@ -33,14 +49,16 @@ export default defineComponent({
             name, role_id, status,
           }
         })
+
+      roleApi.list().then(res => roleOptions.value = mapOptions(res, 'alias', 'id'))
     }, { immediate: true })
 
     function handleSubmit(e: Event) {
       e.preventDefault()
 
       const userPromise = uid.value === 0
-        ? userApi.createUser(user.value)
-        : userApi.modifyUser(uid.value, user.value)
+        ? userApi.create(user.value)
+        : userApi.modify(uid.value, user.value)
 
       userPromise.then(() => {
         // console.log(title.value + 'success !')
@@ -49,10 +67,14 @@ export default defineComponent({
     }
 
     return {
-      user,
+      formRef,
+      model: user,
       uid,
+      rules,
       title,
       handleSubmit,
+      defaultStatusOptions: mapOptions(defaultOptions),
+      roleOptions,
     }
   },
 })
@@ -60,42 +82,30 @@ export default defineComponent({
 <template>
   <div>
     <PageHead :title="title" class="mb-8">
-      <router-link class="btn" to="/permission/users">Back</router-link>
+      <router-link to="/permission/users">
+        <NButton type="primary">Back</NButton>
+      </router-link>
     </PageHead>
     <ContentBox class="p-6">
       <form :onsubmit="handleSubmit">
         <div class="lg:w-1/3 md:w-1/2 w-full">
-          <div class="mb-8">
-            <label for="name" class="block text-sm font-medium mb-1">Name</label>
-            <input id="name" v-model="user.name" type="text" class="w-full outline-none form-input" />
-          </div>
-          <div class="mb-8">
-            <label for="role" class="block text-sm font-medium mb-1">Role</label>
-            <input
-              id="role"
-              v-model="user.role_id"
-              type="number"
-              class="w-full outline-none form-input"
-            />
-          </div>
-          <div class="mb-8">
-            <label for="status" class="block text-sm font-medium mb-1">status</label>
-            <input
-              id="status"
-              v-model="user.status"
-              type="number"
-              class="w-full outline-none form-input"
-            />
-          </div>
+          <NForm ref="form" :model="model" :rules="rules">
+            <NFormItemRow path="name" label="Name">
+              <NInput v-model:value="model.name" @keydown.enter.prevent />
+            </NFormItemRow>
+            <NFormItemRow path="role_id" label="Role">
+              <NSelect v-model:value="model.role_id" :options="roleOptions" />
+            </NFormItemRow>
+            <NFormItemRow path="status" label="Status">
+              <NSelect v-model:value="model.status" :options="defaultStatusOptions" />
+            </NFormItemRow>
+          </NForm>
+
           <div class="flex justify-end">
-            <button type="submit" class="btn">Submit</button>
+            <NButton type="primary" @click="handleSubmit">Submit</NButton>
           </div>
         </div>
       </form>
     </ContentBox>
   </div>
 </template>
-<route lang="yaml">
-meta:
-  layout: home
-</route>
