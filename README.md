@@ -1,46 +1,26 @@
 # python flask boilerplate
 
-## Startup
+## Server
+
+### Startup
 
 ``` bash
-$ python3 -m venv venv
+# develop
+server$ python3 -m venv venv
 
-$ source venv/bin/activate # linux: 
-$ venv\Scripts\activate # windows: 
-
-(venv)$ pip install -r requirements.txt
-
-$ sqlite3
+server$ sqlite3
 > .open db.sqlite
 > .databases # to check
 > .quit
+
+server$ source venv/bin/activate # linux: 
+server$ venv\Scripts\activate # windows: 
+
+server(venv)$ pip install -r requirements.txt
+server(venv)$ python main.py
 ```
 
-### develop
-
-``` python
-from app import app
-
-if __name__ == '__main__':
-  # Development
-  app.run(debug=True, host = host, port = port)
-```
-
-``` bash
-(venv)$ python main.py
-```
-
-### deploy
-
-``` python
-from gevent.pywsgi import WSGIServer
-from app import app
-
-if __name__ == '__main__':
-  # Production
-  http_server = WSGIServer(('0.0.0.0', port), app)
-  http_server.serve_forever()
-```
+### Deploy
 
 1. supervisor
 
@@ -62,18 +42,7 @@ $ supervisorctl shutdown
 $ docker compose up -d
 ```
 
-Note: Configure Database.
-
-`<doing>`
-
-## install packages
-
-``` bash
-(venv)$ pip install <package>
-(venv)$ pip freeze > requirements.txt
-```
-
-## Feature
+### Feature
 
 - [x] configure env for Development, Testing and Production
   - `config`
@@ -91,7 +60,74 @@ Note: Configure Database.
 - [x] Insomnia.yaml for HTTP Client [Insomnia](https://insomnia.rest/)
 - [x] for docker
 
+### Note
 
-## Lib
+1. switch develop/project enviornment
+
+``` python
+# server/config.py
+current = DevelopmentConfig
+# or 
+current = ProductionConfig
+# or
+current = TestingConfig
+```
+
+2. install package
+
+``` bash
+(venv)$ pip install <package>
+(venv)$ pip freeze > requirements.txt
+```
+
+### Lib
 
 - [Flask-JWT](https://pythonhosted.org/Flask-JWT/)
+
+
+## Client
+
+
+### Startup
+
+``` bash
+# develop
+client$ npm install
+client$ npm run dev
+
+# build
+client$ npm run build
+```
+
+### Deploy
+
+1. maunal
+
+2. docker
+
+`doing`
+
+
+### Feature
+
+- api
+  - [x] access
+  - [ ] user
+  - [ ] role
+  - [ ] permission
+- router
+  - [x] basic change
+  - [x] 401 redict `/access/signin`
+  - [x] sidebar configuration
+- ui
+  - [x] sign in 
+  - [ ] change password
+  - [ ] user
+  - [ ] role
+  - [ ] sidebar
+  - [ ] header
+  - [ ] base entity
+
+### Lib
+
+- [Vitesse](https://github.com/antfu/vitesse)

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 from application import db
+from datetime import datetime
 
 class BaseEntity (db.Model):
 
@@ -10,6 +11,9 @@ class BaseEntity (db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   status = db.Column(db.Integer,default = 1)
+  created = db.Column(db.DateTime, default = datetime.utcnow)
+  lasted = db.Column(db.DateTime, default = datetime.utcnow)
+  
   
   @classmethod
   def create_record (Entity, **kwargs):
@@ -22,16 +26,21 @@ class BaseEntity (db.Model):
 
   @classmethod
   def query_record (Entity, **kwargs):
-    return Entity.query.filter_by(**kwargs).first()
+    return Entity.list_records(**kwargs).first()
 
   @classmethod
   def list_records (Entity, **kwargs):
-    return Entity.query.filter_by(**kwargs)
+    return Entity.query.filter_by(
+      **kwargs
+    ).filter(Entity.status.isnot(0))
 
   @classmethod
   def delete_record (Entity, **kwargs):
     record = Entity.query_record(**kwargs)
-    db.session.delete(record)
+    
+    setattr(record, 'status', 0)
+    setattr(record, 'lasted', datetime.utcnow())
+    db.session.add(record)
     db.session.commit()
 
   @classmethod
@@ -42,8 +51,11 @@ class BaseEntity (db.Model):
       del entity['id']
     
     for key in entity:
+      print(key, entity[key])
       setattr(record, key, entity[key])
     
+    setattr(record, 'lasted', datetime.utcnow())
+
     db.session.add(record)
     db.session.commit()
     

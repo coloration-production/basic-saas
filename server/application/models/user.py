@@ -13,7 +13,6 @@ class User (BaseEntity, SerializerMixin):
 
   name = db.Column(db.String(16))
   pwd = db.Column(db.String(128))
-  created = db.Column(db.DateTime, default = datetime.datetime.now)
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
   
   def __repr__(self):
@@ -30,6 +29,12 @@ class User (BaseEntity, SerializerMixin):
   
   def verify_password(self, password):
     return check_password_hash(self.pwd, password)
+
+  def ping (self):
+    self.lasted = datetime.datetime.utcnow()
+    
+    db.session.add(self)
+    db.session.commit()
 
   @classmethod
   def create_record (User, **kwargs):
@@ -54,4 +59,4 @@ class User (BaseEntity, SerializerMixin):
     id = payload['identity']
     user = User.query_record(id = id)
 
-    return user 
+    return user, 201

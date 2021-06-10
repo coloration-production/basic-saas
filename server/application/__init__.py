@@ -2,10 +2,13 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
 
 import logging
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config.from_object('config.current')
 
@@ -20,6 +23,7 @@ logger.setLevel(logging.INFO)
 
 import application.jwt
 
+import application.routes.config
 import application.routes.user
 import application.routes.permission
 import application.routes.role
