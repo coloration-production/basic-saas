@@ -5,6 +5,11 @@ export enum BaseStatus {
   disable = 2
 }
 
+export enum WidgetType {
+  frame = 1,
+  camera = 2
+}
+
 export interface BaseDto {
   id: number
   status: BaseStatus
@@ -29,6 +34,19 @@ export interface PermissionDto extends BaseDto {
   pid: number
   name: string
   alias: string
+}
+
+export interface WidgetDto extends BaseDto {
+  name: string
+  url: string
+  type: WidgetType
+  /* eslint-disable no-use-before-define */
+  windows: WindowDto[]
+}
+
+export interface WindowDto extends BaseDto {
+  name: string
+  widgets: WidgetDto[]
 }
 
 export interface SigninPayload {

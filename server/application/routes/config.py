@@ -13,6 +13,12 @@ def get_config ():
         '1': 'enable',
         '2': 'disable',
       }
+    },
+    'type': {
+      'widget': {
+        '1': 'frame',
+        '2': 'camera'
+      },
     }
   }
 

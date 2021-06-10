@@ -31,8 +31,8 @@ export default defineComponent({
           value: '/monitor',
           icon: IconDashboard,
           children: [
-            { name: 'Cameras', value: '/monitor/cameras' },
-            { name: 'Screens', value: '/monitor/screens' },
+            { name: 'Windows', value: '/monitor/windows' },
+            { name: 'Widgets', value: '/monitor/widgets' },
           ],
         },
         { name: 'Settings', value: '/settings', icon: IconDashboard, tips: 6 },
