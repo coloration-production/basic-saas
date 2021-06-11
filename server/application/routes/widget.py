@@ -60,6 +60,6 @@ def widget_delete (id):
 @app.route('/widget/join_camera/<id>', methods=['GET'])
 def widget_join_camera (id):
 
-  record = Widget().query_record(id = id)
+  record = Widget().query_record(id = id)r
   
   pass

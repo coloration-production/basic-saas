@@ -1,0 +1,784 @@
+_type: export
+__export_format: 4
+__export_date: 2021-06-11T07:41:13.013Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_91ed90ff8b42445985a9160d36ccc703
+    parentId: fld_cf281067d1da4baeaf5851859c897eaa
+    modified: 1623396900823
+    created: 1623396894943
+    url: "{{ _.host }}/getAllSession"
+    name: 获取TcpSession列表(getAllSession)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_d1d15110a3974a29bea25a8d9a04eb37
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697903.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cf281067d1da4baeaf5851859c897eaa
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623396834484
+    created: 1623396834484
+    name: TCP
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623396834485
+    _type: request_group
+  - _id: wrk_85be23bd2b854054a2a732d751e88697
+    parentId: null
+    modified: 1623392904245
+    created: 1623392904245
+    name: " ZLMediaKit"
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_2c12f2ddd2414d28a4027c23f7b6cdce
+    parentId: fld_e4087fca332f4c4ba1e449af5a0f065d
+    modified: 1623394766643
+    created: 1623393544971
+    url: "{{ _.host }}/addStreamProxy"
+    name: 添加rtsp/rtmp/hls拉流代理(addStreamProxy)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: vhost
+        value: "{{ _.defaultVHost }}"
+        description: ""
+        id: pair_08c4b30b64bd4f9197323c973e07efc7
+      - name: url
+        value: rtsp://admin:hik12345@192.168.0.111:554/h264/ch1/main/av_stream
+        description: ""
+        id: pair_1eea54d356d94277814e8a008c340467
+      - name: stream
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: app
+        value: live
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+      - name: enable_hls
+        value: ""
+        description: ""
+        id: pair_1e49135aca5f48b99f39e99d34dfd4d4
+        disabled: true
+      - name: enable_mp4
+        value: ""
+        description: ""
+        id: pair_8a1e05a46f2e4bbdaaf1d1f429240df1
+        disabled: true
+      - name: rtp_type
+        value: ""
+        description: ""
+        id: pair_b574cc27d8234dc69ec4035ccdaa8cd9
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697922.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_e4087fca332f4c4ba1e449af5a0f065d
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623395403196
+    created: 1623393538161
+    name: Stream
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623395366277
+    _type: request_group
+  - _id: req_d3ebd0de804441ad8e4b5d2f89c2f4d2
+    parentId: fld_e4087fca332f4c4ba1e449af5a0f065d
+    modified: 1623396997933
+    created: 1623394344904
+    url: "{{ _.host }}/delStreamProxy"
+    name: 删除拉流代理(delStreamProxy)流注册成功后，也可以使用close_streams接口替代
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_d1d15110a3974a29bea25a8d9a04eb37
+      - name: key
+        value: "{% response 'body', 'req_2c12f2ddd2414d28a4027c23f7b6cdce',
+          'b64::JC5kYXRhLmtleQ==::46b', 'never', 60 %}"
+        description: ""
+        id: pair_7869e08ef80c49679cfc1357d07ff6b3
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697910
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4d7da20b88344732a63153b878a8b871
+    parentId: fld_e4087fca332f4c4ba1e449af5a0f065d
+    modified: 1623397045937
+    created: 1623394840170
+    url: "{{ _.host }}/isMediaOnline"
+    name: 流是否在线(isMediaOnline) 过期
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: vhost
+        value: "{{ _.defaultVHost }}"
+        description: ""
+        id: pair_08c4b30b64bd4f9197323c973e07efc7
+      - name: schema
+        value: rtsp
+        description: ""
+        id: pair_1eea54d356d94277814e8a008c340467
+      - name: stream
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: app
+        value: live
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697897.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e3f90eb5000c4af49ada184d5d8e135d
+    parentId: fld_e4087fca332f4c4ba1e449af5a0f065d
+    modified: 1623394982989
+    created: 1623394972960
+    url: "{{ _.host }}/getMediaInfo"
+    name: 获取流信息(getMediaInfo)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: vhost
+        value: "{{ _.defaultVHost }}"
+        description: ""
+        id: pair_08c4b30b64bd4f9197323c973e07efc7
+      - name: schema
+        value: rtsp
+        description: ""
+        id: pair_1eea54d356d94277814e8a008c340467
+      - name: stream
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: app
+        value: live
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697885
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ea70e9f3f28f44e7a74aeb0d6c7f4bf6
+    parentId: fld_e4087fca332f4c4ba1e449af5a0f065d
+    modified: 1623396347965
+    created: 1623393404726
+    url: "{{ _.host }}/getMediaList"
+    name: 获取流列表(getMediaList)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697878.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d6ac36f36a9145b183a792fb28005e5c
+    parentId: fld_1162d997d49f480691b3048dfee45e3b
+    modified: 1623395370186
+    created: 1623395071482
+    url: "{{ _.host }}/openRtpServer"
+    name: 创建RTP服务器(openRtpServer)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: port
+        value: "0"
+        description: ""
+        id: pair_1eea54d356d94277814e8a008c340467
+      - name: enable_tcp
+        value: "1"
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: stream_id
+        value: camera1
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697822.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1162d997d49f480691b3048dfee45e3b
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623395366227
+    created: 1623395366227
+    name: RTP Server
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623395366227
+    _type: request_group
+  - _id: req_bb6c9af4a68845c98c7ef64b83739676
+    parentId: fld_1162d997d49f480691b3048dfee45e3b
+    modified: 1623395385077
+    created: 1623395380992
+    url: "{{ _.host }}/closeRtpServer"
+    name: 关闭RTP服务器(closeRtpServer)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: stream_id
+        value: camera1
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392697772.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8c087c45c8614b37bdac381127d2f77e
+    parentId: fld_1162d997d49f480691b3048dfee45e3b
+    modified: 1623395427919
+    created: 1623395415274
+    url: "{{ _.host }}/listRtpServer"
+    name: 获取RTP服务器列表(listRtpServer)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392648551.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9fab434163664dee88c5e8eafa7d2c41
+    parentId: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    modified: 1623395890167
+    created: 1623395484919
+    url: "{{ _.host }}/startSendRtp"
+    name: 开始发送RTP(startSendRtp)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: vhost
+        value: "{{ _.defaultVHost }}"
+        description: ""
+        id: pair_08c4b30b64bd4f9197323c973e07efc7
+      - name: stream
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: app
+        value: live
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+      - name: ssrc
+        value: "1"
+        description: ""
+        id: pair_5ddf7a11c0384da1b6e8b6e65b544620
+      - name: dst_url
+        value: 127.0.0.1
+        description: ""
+        id: pair_1eea54d356d94277814e8a008c340467
+      - name: dst_port
+        value: "10000"
+        description: ""
+        id: pair_1e49135aca5f48b99f39e99d34dfd4d4
+        disabled: false
+      - name: is_udp
+        value: "0"
+        description: ""
+        id: pair_8a1e05a46f2e4bbdaaf1d1f429240df1
+        disabled: false
+      - name: src_port
+        value: "0"
+        description: ""
+        id: pair_b574cc27d8234dc69ec4035ccdaa8cd9
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392648501.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623395884753
+    created: 1623395880993
+    name: RTP Stream
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623394422229
+    _type: request_group
+  - _id: req_4c084efe4f294635a75d47958cfe2021
+    parentId: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    modified: 1623395899797
+    created: 1623395753181
+    url: "{{ _.host }}/getRtpInfo"
+    name: 获取RTP推流信息(getRtpInfo)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: stream_id
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392648451.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_be34b110463a41eeaf24920b90abce3f
+    parentId: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    modified: 1623395896811
+    created: 1623395670615
+    url: "{{ _.host }}/stopSendRtp"
+    name: 停止发送RTP(stopSendRtp)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: vhost
+        value: "{{ _.defaultVHost }}"
+        description: ""
+        id: pair_08c4b30b64bd4f9197323c973e07efc7
+      - name: stream
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+      - name: app
+        value: live
+        description: ""
+        id: pair_cafb5da752544aa393e578cb9faf3872
+      - name: ssrc
+        value: "1"
+        description: ""
+        id: pair_5ddf7a11c0384da1b6e8b6e65b544620
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392648401.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2357fe9368af48749a4338938073006e
+    parentId: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    modified: 1623395957696
+    created: 1623395952598
+    url: "{{ _.host }}/pauseRtpCheck"
+    name: 暂停RTP超时检查(pauseRtpCheck)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: stream_id
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392648351.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c6d4bc9ea3534a7b85e5cbb5655e7a92
+    parentId: fld_90de8bdf276d4a5c997629d9fedc2ad5
+    modified: 1623396043079
+    created: 1623396041143
+    url: "{{ _.host }}/resumeRtpCheck"
+    name: 恢复RTP超时检查(resumeRtpCheck)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: stream_id
+        value: camera1
+        description: ""
+        id: pair_553d97c484064c438eab5d64d921f3b1
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392623841.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_294eb4e3ae0643bca40b2ccd1b5df415
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623393556116
+    created: 1623393553282
+    url: "{{ _.host }}/getStatistic"
+    name: 获取主要对象个数(getStatistic)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392993797
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_78ee6118595440788b265d26fe8f262d
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623396270830
+    created: 1623393478231
+    name: Base
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623393478231
+    _type: request_group
+  - _id: req_a66d8f5dcc40444d85d3b49a6a427007
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623396387269
+    created: 1623392993697
+    url: "{{ _.host }}/getApiList"
+    name: 获取服务器api列表(getApiList)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392993772
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_985b713df5744dab9d43d55919b2a96a
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623393489310
+    created: 1623393296072
+    url: "{{ _.host }}/getThreadsLoad"
+    name: 获取网络线程负载(getThreadsLoad)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392993747
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_097f23c57a144e00854f67d940371f53
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623393521697
+    created: 1623393318089
+    url: "{{ _.host }}/getWorkThreadsLoad"
+    name: 获取后台线程负载(getWorkThreadsLoad)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392993734.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ada1fd0cb8ef4cd0b3f6cdb5d152b6c7
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623393506953
+    created: 1623393358758
+    url: "{{ _.host }}/getServerConfig"
+    name: 获取服务器配置(getServerConfig)
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392993722
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_de94f134a68b4a478e7f48b4913a4ff3
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623396492834
+    created: 1623396434239
+    url: "{{ _.host }}/setServerConfig"
+    name: 设置服务器配置(setServerConfig)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+      - name: api.apiDebug
+        value: "0"
+        description: ""
+        id: pair_feda01348acd4246950bb7de1ba95aab
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392845822.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_00d6d99a655047d6a58282e3ca041143
+    parentId: fld_78ee6118595440788b265d26fe8f262d
+    modified: 1623396487835
+    created: 1623396477710
+    url: "{{ _.host }}/restartServer"
+    name: 重启服务器(restartServer)
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - name: secret
+        value: "{{ _.secret }}"
+        description: ""
+        id: pair_a2f00e27d1c445b3afde29f54928912e
+    headers: []
+    authentication: {}
+    metaSortKey: -1623392845772.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_914a0191bdc69fee1079fec5ea6bcef86a33f4c9
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623392904887
+    created: 1623392904887
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1623392904887
+    _type: environment
+  - _id: jar_914a0191bdc69fee1079fec5ea6bcef86a33f4c9
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623392904894
+    created: 1623392904894
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_71d2704b9d1b408b98c8f511f7441796
+    parentId: wrk_85be23bd2b854054a2a732d751e88697
+    modified: 1623392904255
+    created: 1623392904255
+    fileName: " ZLMediaKit"
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_967342fabc1b4a0bae756eec0a84145f
+    parentId: env_914a0191bdc69fee1079fec5ea6bcef86a33f4c9
+    modified: 1623394753887
+    created: 1623392911539
+    name: DockerTest
+    data:
+      host: http://localhost:8080/index/api
+      defaultVHost: __defaultVhost__
+      secret: 035c73f7-bb6b-4889-a715-d9eb2d1925cc
+    dataPropertyOrder:
+      "&":
+        - host
+        - defaultVHost
+        - secret
+    color: null
+    isPrivate: false
+    metaSortKey: 1623392911539
+    _type: environment

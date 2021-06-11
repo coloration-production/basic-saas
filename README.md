@@ -131,3 +131,11 @@ client$ npm run build
 ### Lib
 
 - [Vitesse](https://github.com/antfu/vitesse)
+
+
+## Media server
+
+- [ZLMediaKit](https://github.com/ZLMediaKit/ZLMediaKit)
+  - docker: `docker run -id -p 1935:1935 -p 8080:80 -p 8554:554 -p 10000:10000 -p 10000:10000/udp panjjo/zlmediakit`
+  - api port: http://localhost:8080
+  - [RESTful](https://github.com/ZLMediaKit/ZLMediaKit/wiki/MediaServer%E6%94%AF%E6%8C%81%E7%9A%84HTTP-API)
