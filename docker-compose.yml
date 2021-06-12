@@ -2,11 +2,11 @@ version: "3.7"
 
 services:
 
-  flask:
+  basic-saas:
     build: ./server
-    container_name: flask
+    container_name: basic-saas
     restart: always
     environment:
-      - APP_NAME=MyFlaskApp
+      - APP_NAME=BasicSaaS
     ports:
       - 5678:5678
