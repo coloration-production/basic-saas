@@ -3,9 +3,11 @@
 from flask import jsonify, request
 from application import app
 from application.models.permission import Permission
+from flask_jwt import jwt_required
 import json
 
 @app.route('/permissions', methods=['GET'])
+@jwt_required()
 def permission_list ():
   # try:
 
@@ -16,6 +18,7 @@ def permission_list ():
   #   return 'query failed', 404
 
 @app.route('/permission', methods=['GET'])
+@jwt_required()
 def permission_query ():
 
   try: 
@@ -27,6 +30,7 @@ def permission_query ():
     return 'query failed', 404
 
 @app.route('/permission', methods=['POST'])
+@jwt_required()
 def permission_create ():
   
   try:
@@ -39,6 +43,7 @@ def permission_create ():
     return 'create failed', 400
 
 @app.route('/permission/<id>', methods=['PATCH'])
+@jwt_required()
 def permission_modify (id):
   try:
 
@@ -50,6 +55,7 @@ def permission_modify (id):
 
 
 @app.route('/permission/<id>', methods=['DELETE'])
+@jwt_required()
 def permission_delete (id):
   try: 
     Permission.delete_record(id = id)

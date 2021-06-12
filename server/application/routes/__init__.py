@@ -5,3 +5,5 @@ import application.routes.role
 import application.routes.access
 import application.routes.widget
 import application.routes.window
+
+import application.routes.mediaProxy

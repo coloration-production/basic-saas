@@ -3,8 +3,9 @@
 from application.models.base_entity import BaseEntity
 from application import db
 from sqlalchemy_serializer import SerializerMixin
+from application.logic.mediaProxy import media_proxy_request
 
-
+mediaProxyAppName = 'camera'
 
 class Widget (BaseEntity, SerializerMixin):
 
