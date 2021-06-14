@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>liveplayer</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+  <script type="text/javascript" src="./liveplayer-element.min.js"></script>
+</head>
+
+<body>
+  <live-player id="player01" live="true" stretch="true" show-custom-button="false" autoplay>
+  </live-player>
+  <script>
+    function getQueryVariable(variable) {
+      const query = window.location.search.substring(1)
+      const vars = query.split('&')
+
+      for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split('=')
+
+        if (pair[0] === variable) return pair[1]
+      }
+      return (false)
+    }
+
+    const videoPath = decodeURIComponent(getQueryVariable('url'))
+
+    window.console.log(`播放地址：${videoPath}`)
+    const player = document.getElementById('player01')
+    player.setAttribute('video-url', videoPath)
+
+    window.addEventListener('message', (event) => {
+      const data = event.data
+      switch (data.cmd) {
+        case 'switchUrl':
+          // 处理业务逻辑
+          window.console.log(`收到消息：${JSON.stringify(data.params)}`)
+
+          player.setAttribute('video-url', data.params.url)
+          player.setAttribute('live', !!data.params.live)
+          break
+      }
+    })
+  </script>
+</body>
+
+</html>

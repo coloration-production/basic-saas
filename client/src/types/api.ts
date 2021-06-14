@@ -42,6 +42,9 @@ export interface WidgetDto extends BaseDto {
   type: WidgetType
   /* eslint-disable no-use-before-define */
   windows: WindowDto[]
+  info?: {
+    src: ''
+  }
 }
 
 export interface WindowDto extends BaseDto {

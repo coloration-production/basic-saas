@@ -7,13 +7,9 @@ from application.routes.mediaProxy import media_proxy_request
 import re
 import json
 
-def format_response_dict (record, rules = ('-windows.widgets',)):
+def format_response_dict (record, rules = ('-windows.widgets',), single = False):
 
-  recordCount = record.count()
-
-  if recordCount <= 0: return record
-
-  records = record if recordCount > 1 else [record]
+  records = [record] if single else record
   dicts = [r.to_dict(rules = rules) for r in records]
   cameras = list(filter(lambda d: d['type'] == 2, dicts))
 
@@ -21,14 +17,14 @@ def format_response_dict (record, rules = ('-windows.widgets',)):
   if len(cameras) > 0:
     mediaProxyAppName = 'camera'
     mediaResponse = media_proxy_request('getMediaList')
-    mediaList = mediaResponse['data']
+    mediaList = mediaResponse['data'] if 'data' in mediaResponse else []
 
     for cmr in cameras:
       hasProxy = False
       for mediaProxy in mediaList:
         if mediaProxy['originUrl'] == cmr['url']:
           hasProxy = True
-          cmr.update({ "info": { "src": '/{}/{}.flv'.format(mediaProxyAppName, mediaProxy['stream']) } })
+          cmr.update({ 'info': { 'src': 'http://localhost:8080/{}/{}.flv'.format(mediaProxyAppName, mediaProxy['stream']) } })
 
       if not hasProxy:
         defaultHost = '__defaultVhost__'
@@ -43,10 +39,10 @@ def format_response_dict (record, rules = ('-windows.widgets',)):
         
         if response['code'] == 0:
           key = response['data']['key']
-          cmr.update({ 'info': { 'src': re.sub(defaultHost, '', key) + '.flv' }})
+          cmr.update({ 'info': { 'src': re.sub(defaultHost, 'http://localhost:8080', key) + '.flv' }})
         pass
 
-  return jsonify(dicts) if recordCount > 1 else dicts[0]
+  return dicts[0] if single else jsonify(dicts)
 
 @app.route('/widgets', methods=['GET'])
 def widget_list ():
@@ -64,7 +60,7 @@ def widget_query ():
   # try: 
     record = Widget().query_record(**request.args) 
 
-    return format_response_dict(record)
+    return format_response_dict(record, single = True)
 
   # except:
   #   return 'query failed', 404

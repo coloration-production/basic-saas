@@ -23,6 +23,9 @@ export default defineComponent({
       url: '',
       status: 1,
       type: 1,
+      info: {
+        src: '',
+      },
     })
 
     const id = computed(() => Number(props.id) || 0)
@@ -43,8 +46,8 @@ export default defineComponent({
 
       widgetApi.get(id.value)
         .then((res) => {
-          const { name, status, url, type } = res
-          model.value = { name, status, url, type }
+          const { name, status, url, type, info } = res
+          model.value = { name, status, url, type, info }
         })
     }, { immediate: true })
 
@@ -116,9 +119,14 @@ export default defineComponent({
       <div class="flex-1 md:pl-4">
         <div class="pb-1">Preview</div>
 
-        <div class="border border-gray-200 rounded-sm overflow-hidden flex items-stretch">
-          <iframe v-if="model.type === 1" class="flex-1 min-h-86" :src="model.url" />
-          <video v-else :src="model.url"></video>
+        <div class="border min-h-86 border-gray-200 rounded-sm overflow-hidden flex items-stretch">
+          <iframe 
+            v-if="model.type === 1" 
+            class="flex-1 min-h-86" 
+            frameborder="no"
+            border="0" 
+            :src="model.url" />
+          <CameraPlayer v-else :url="model.info?.src" />
         </div>
       </div>
     </ContentBox>

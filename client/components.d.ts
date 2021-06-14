@@ -4,6 +4,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/Button.vue')['default']
+    CameraPlayer: typeof import('./src/components/CameraPlayer.vue')['default']
     ContentBox: typeof import('./src/components/ContentBox.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     FormLabel: typeof import('./src/components/FormLabel.vue')['default']
