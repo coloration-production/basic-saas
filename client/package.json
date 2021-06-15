@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 3333 --open",
-    "build": "cross-env NODE_ENV=production vite-ssg build",
+    "build:ssg": "cross-env NODE_ENV=production vite-ssg build",
+    "build:docker": "cross-env NODE_ENV=production vite build --mode docker",
     "preview": "vite preview",
     "preview-https": "serve dist"
   },
@@ -12,12 +13,9 @@
     "@liveqing/liveplayer": "^2.3.7",
     "@vueuse/core": "^4.11.2",
     "@vueuse/head": "^0.5.1",
-    "flv.js": "^1.5.0",
     "naive-ui": "^2.11.4",
     "nprogress": "^0.2.0",
     "prism-theme-vars": "^0.2.2",
-    "video.js": "^7.12.3",
-    "videojs-flvjs-es6": "^1.0.1",
     "vue": "^3.0.11",
     "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.8"

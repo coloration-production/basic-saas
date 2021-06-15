@@ -2,8 +2,10 @@ import { Asker, HttpStatus } from '@coloration/asker'
 import { } from 'vue-router'
 import { SigninDto, STORAGE_SIGN } from '~/types'
 
+console.log(import.meta.env.VITE_API_URL)
+
 export const base = new Asker({
-  baseUrl: 'http://192.168.0.18:5678',
+  baseUrl: import.meta.env.VITE_API_URL,
   errorResponseType: 'json',
   before: (conf) => {
     if (conf.url === '/signin') return conf

@@ -105,7 +105,10 @@ client$ npm run build
 
 2. docker
 
-`doing`
+- [x] saas-website
+- [-] saas-service
+- [ ] media-service
+- [ ] others
 
 
 ### Feature
