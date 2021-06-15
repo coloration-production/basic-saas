@@ -51,7 +51,6 @@ class BaseEntity (db.Model):
       del entity['id']
     
     for key in entity:
-      print(key, entity[key])
       setattr(record, key, entity[key])
     
     setattr(record, 'lasted', datetime.utcnow())

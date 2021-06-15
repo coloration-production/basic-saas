@@ -24,7 +24,7 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
       for mediaProxy in mediaList:
         if mediaProxy['originUrl'] == cmr['url']:
           hasProxy = True
-          cmr.update({ 'info': { 'src': 'http://localhost:8080/{}/{}.flv'.format(mediaProxyAppName, mediaProxy['stream']) } })
+          cmr.update({ 'info': { 'src': 'http://192.168.0.18:8080/{}/{}.flv'.format(mediaProxyAppName, mediaProxy['stream']) } })
 
       if not hasProxy:
         defaultHost = '__defaultVhost__'
@@ -39,7 +39,7 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
         
         if response['code'] == 0:
           key = response['data']['key']
-          cmr.update({ 'info': { 'src': re.sub(defaultHost, 'http://localhost:8080', key) + '.flv' }})
+          cmr.update({ 'info': { 'src': re.sub(defaultHost, 'http://192.168.0.18:8080', key) + '.flv' }})
         pass
 
   return dicts[0] if single else jsonify(dicts)
@@ -70,9 +70,10 @@ def widget_create ():
   
   # try:
     schema = json.loads(request.data)
+    if 'info' in schema: del schema['info']
     record = Widget.create_record(**schema)
 
-    return format_response_dict(record), 201
+    return format_response_dict(record, single = True), 201
 
   # except:
   #   return 'create failed', 400
@@ -82,8 +83,9 @@ def widget_modify (id):
   try:
 
     schema = json.loads(request.data)
+    if 'info' in schema: del schema['info']
     record = Widget.modify_record(id, schema)
-    return format_response_dict(record)
+    return format_response_dict(record, single = True)
   except:
     return 'modify failed', 400
 

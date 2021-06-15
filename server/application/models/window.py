@@ -5,12 +5,14 @@ from application import db
 from sqlalchemy_serializer import SerializerMixin
 from application.models.window_widget import registrations
 from application.models.widget import Widget
+from datetime import datetime
 
 class Window(BaseEntity, SerializerMixin):
 
   __tablename__ = 'windows'
   
   name = db.Column(db.String(32))
+  layout = db.Column(db.String)
   widgets = db.relationship(
     'Widget', 
     secondary = registrations, 
@@ -23,25 +25,40 @@ class Window(BaseEntity, SerializerMixin):
 
   @classmethod
   def create_record (Entity, **kwargs):
-    print(0)  
     widgets = []
-    
     if 'widgets' in kwargs:
       widgets = kwargs['widgets']
       del kwargs['widgets']
-
-    print(1, widgets)    
     record = Entity(**kwargs)
-    
-    print(2)
     if len(widgets) > 0 and isinstance(widgets, list):
-      print(3)
       record.widgets = Widget.query.filter(Widget.id.in_(widgets)).all()
-      print(4)
       pass
-    
-    print(5)
     db.session.add(record)
     db.session.commit()
+    return record
 
+  @classmethod
+  def modify_record (Entity, id, entity):
+    record = Entity.query_record(id = id)
+    widgets = []
+
+    if 'id' in entity: 
+      del entity['id']
+    
+    if 'widgets' in entity:
+      widgets = entity['widgets']
+      del entity['widgets']
+    
+    for key in entity:
+      setattr(record, key, entity[key])
+
+    if len(widgets) > 0 and isinstance(widgets, list):
+      record.widgets = Widget.query.filter(Widget.id.in_(widgets)).all()
+      pass
+    
+    setattr(record, 'lasted', datetime.utcnow())
+
+    db.session.add(record)
+    db.session.commit()
+    
     return record

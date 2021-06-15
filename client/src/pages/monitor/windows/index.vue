@@ -52,7 +52,7 @@ export default defineComponent({
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ item.id }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">{{ item.name }}</td>
               <td class="p-2 whitespace-nowrap font-semibold text-left">
-                <router-link :to="`/permission/permissions/${item.id}`">Edit</router-link>
+                <router-link :to="`/monitor/windows/${item.id}`">Edit</router-link>
               </td>
             </tr>
           </tbody>

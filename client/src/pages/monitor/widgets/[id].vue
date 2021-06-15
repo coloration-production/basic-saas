@@ -23,9 +23,10 @@ export default defineComponent({
       url: '',
       status: 1,
       type: 1,
-      info: {
-        src: '',
-      },
+    })
+
+    const info = ref<any>({
+      src: '',
     })
 
     const id = computed(() => Number(props.id) || 0)
@@ -46,8 +47,9 @@ export default defineComponent({
 
       widgetApi.get(id.value)
         .then((res) => {
-          const { name, status, url, type, info } = res
-          model.value = { name, status, url, type, info }
+          const { name, status, url, type, info: infomation } = res
+          model.value = { name, status, url, type }
+          info.value = infomation
         })
     }, { immediate: true })
 
@@ -57,10 +59,11 @@ export default defineComponent({
       // form.value.validate((errors) => {
 
       // })
-
+      const params = Object.assign({}, model.value)
+      delete params.info
       const widgetPromise = id.value === 0
-        ? widgetApi.create(model.value)
-        : widgetApi.modify(id.value, model.value)
+        ? widgetApi.create(params)
+        : widgetApi.modify(id.value, params)
 
       widgetPromise.then(() => {
         // console.log(title.value + 'success !')
@@ -77,6 +80,7 @@ export default defineComponent({
       model,
       title,
       rules,
+      info,
       handleSubmit,
       defaultStatusOptions: mapOptions(defaultOptions),
       permissionOptions,
@@ -120,13 +124,14 @@ export default defineComponent({
         <div class="pb-1">Preview</div>
 
         <div class="border min-h-86 border-gray-200 rounded-sm overflow-hidden flex items-stretch">
-          <iframe 
-            v-if="model.type === 1" 
-            class="flex-1 min-h-86" 
+          <iframe
+            v-if="model.type === 1"
+            class="flex-1 min-h-86"
             frameborder="no"
-            border="0" 
-            :src="model.url" />
-          <CameraPlayer v-else :url="model.info?.src" />
+            border="0"
+            :src="model.url"
+          />
+          <CameraPlayer v-else :url="info?.src" />
         </div>
       </div>
     </ContentBox>

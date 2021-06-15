@@ -3,7 +3,7 @@ import { } from 'vue-router'
 import { SigninDto, STORAGE_SIGN } from '~/types'
 
 export const base = new Asker({
-  baseUrl: 'http://localhost:5678',
+  baseUrl: 'http://192.168.0.18:5678',
   errorResponseType: 'json',
   before: (conf) => {
     if (conf.url === '/signin') return conf

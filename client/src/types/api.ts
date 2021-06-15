@@ -50,6 +50,7 @@ export interface WidgetDto extends BaseDto {
 export interface WindowDto extends BaseDto {
   name: string
   widgets: WidgetDto[]
+  layout: string
 }
 
 export interface SigninPayload {

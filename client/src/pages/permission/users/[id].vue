@@ -39,6 +39,8 @@ export default defineComponent({
     const roleOptions = ref<ComponentOptions>([])
 
     watch(uid, () => {
+      roleApi.list().then(res => roleOptions.value = mapOptions(res, 'alias', 'id'))
+
       if (uid.value === 0) return
 
       userApi.get(uid.value)
@@ -49,8 +51,6 @@ export default defineComponent({
             name, role_id, status,
           }
         })
-
-      roleApi.list().then(res => roleOptions.value = mapOptions(res, 'alias', 'id'))
     }, { immediate: true })
 
     function handleSubmit(e: Event) {
