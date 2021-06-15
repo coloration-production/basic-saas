@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2021-06-15T01:07:29.088Z
+__export_date: 2021-06-15T07:42:51.036Z
 __export_source: insomnia.desktop.app:v2021.3.0
 resources:
   - _id: req_e298d57325d345eaacf3d1ef3d5b7b27
@@ -838,22 +838,22 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_23a745ac434e46d8b03fd0b8e07b2030
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623717883896
-    created: 1623511774016
+  - _id: req_469c39b055f440f28d2593324732e8ee
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623723098527
+    created: 1623301445599
     url: "{{ _.baseUrl }}/widget"
     name: Create
     description: ""
     method: POST
     body:
       mimeType: application/json
-      text: |-
+      text: >-
         {
-        	"name": "David",
-        	"pwd": "123456",
+        	"name": "正门2",
+        	"url": "rtsp://admin:hik12345@192.168.0.112:554/h264/ch1/main/av_stream",
         	"status": 1,
-        	"role_id": 1
+        	"type": 2
         }
     parameters: []
     headers:
@@ -876,21 +876,21 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+  - _id: fld_79d254a59ebe49f6b27b55e96aebc189
     parentId: wrk_28004b0463654a279bfc8babcf25df4e
-    modified: 1623511775647
-    created: 1623511774013
+    modified: 1623301448886
+    created: 1623301445590
     name: Widget
     description: ""
     environment: {}
     environmentPropertyOrder: null
     metaSortKey: -1610798590454.25
     _type: request_group
-  - _id: req_69c643739aa34a5ead59ea1ac9d2f7a3
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623717891358
-    created: 1623511774026
-    url: "{{ _.baseUrl }}/widget/1"
+  - _id: req_4054245abc9343c2bb09ab1cdad88b33
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623301445620
+    created: 1623301445620
+    url: "{{ _.baseUrl }}/user/1"
     name: Remove
     description: ""
     method: DELETE
@@ -912,11 +912,11 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_6248334506384737bbcc367743770ffa
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623511774029
-    created: 1623511774029
-    url: "{{ _.baseUrl }}/user/1"
+  - _id: req_b2dfd7753e55496aa3fa24771c7f7577
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623733731379
+    created: 1623301445623
+    url: "{{ _.baseUrl }}/widget/1"
     name: Modify
     description: ""
     method: PATCH
@@ -948,10 +948,10 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_228c7a35896248ca9cb384a8273fe8c2
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623516800775
-    created: 1623511774020
+  - _id: req_2432308e7dab4e4c85f3a25afee1bb02
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623301860683
+    created: 1623301445610
     url: "{{ _.baseUrl }}/widget?id=1"
     name: Query
     description: ""
@@ -974,11 +974,11 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_4e33777cce6d43a8a6e53ecf058932a6
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623511774032
-    created: 1623511774032
-    url: "{{ _.baseUrl }}/user?name=Jack"
+  - _id: req_f82bacd6cd9e4c7dbb114a2e07c3c00f
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623301874745
+    created: 1623301445627
+    url: "{{ _.baseUrl }}/widget?name=百度"
     name: Query by param
     description: ""
     method: GET
@@ -1005,10 +1005,10 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_4f934e6aa62642e392fdec9433f3abd2
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623511781513
-    created: 1623511774023
+  - _id: req_c4c7c10911694bcaa35cfaafb24dfb9d
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623301836611
+    created: 1623301445617
     url: "{{ _.baseUrl }}/widgets"
     name: List
     description: ""
@@ -1035,11 +1035,233 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_5389446b8936443b9f13dcfd2759f034
-    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
-    modified: 1623511786707
-    created: 1623511774036
+  - _id: req_e8054974986b423aba3cb319724111e2
+    parentId: fld_79d254a59ebe49f6b27b55e96aebc189
+    modified: 1623301846688
+    created: 1623301445630
     url: "{{ _.baseUrl }}/widgets?id=2"
+    name: List by param
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_06afca95bcc449f183034d2e892e8e37
+    authentication: {}
+    metaSortKey: -1608331030436
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f35192177d574cc09e2b933995b48b36
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623736894979
+    created: 1623302009582
+    url: "{{ _.baseUrl }}/window"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "窗口4",
+        	"status": 1,
+        	"widgets": [1,2,4]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_15e0cda8df8f4f93a6ca16d4f91de1cc
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_f8c64039e91c42988d2206dc8b32adff
+        disabled: false
+    authentication: {}
+    metaSortKey: -1611472735121
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1623302009577
+    created: 1623302009577
+    name: Window
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1610461530808.875
+    _type: request_group
+  - _id: req_f2e75df91d8c442bae05ae452c070180
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623302009601
+    created: 1623302009601
+    url: "{{ _.baseUrl }}/user/1"
+    name: Remove
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_1a5042a7b2434888aedd0c56b8b7c776
+    authentication: {}
+    metaSortKey: -1611472735096
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1756d6313d3a4d7ea45a0521ed444e2e
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623734274002
+    created: 1623302009604
+    url: "{{ _.baseUrl }}/window/1"
+    name: Modify
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "窗口一",
+        	"status": 1,
+        	"widgets": [1, 6, 7, 2]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_dff08e1b868b4e81a8db1a826c4a3152
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_bb0298911e674c7185dccafb2d6cffcd
+    authentication: {}
+    metaSortKey: -1611472735083.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_70b267575dbe4f1cb1de53fd5e6a590d
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623303008368
+    created: 1623302009594
+    url: "{{ _.baseUrl }}/window?id=1"
+    name: Query
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_1ff45b9ffd844bd4aa43796f87888ccf
+    authentication: {}
+    metaSortKey: -1611472735071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5c9334935308470d9d509c46b957dc82
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623303002434
+    created: 1623302009606
+    url: "{{ _.baseUrl }}/window?name=百度"
+    name: Query by param
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_928bd7fb9e414a4fa6396d44b697dec5
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_fac36c2db8204f93abf8b30805ed7309
+    authentication: {}
+    metaSortKey: -1611472735058.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bacafbf5c2cf4fb0b2b17c9175221600
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623302115243
+    created: 1623302009599
+    url: "{{ _.baseUrl }}/windows"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_5afb45fae7594cddb920307ec345c3ac
+      - name: ""
+        value: ""
+        description: ""
+        id: pair_de45948abb76402287f66ef7e815d363
+    authentication: {}
+    metaSortKey: -1611472735046
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_768cae37dcef4eafa2c3dfa2f20c1c36
+    parentId: fld_089cb8488cb145008b6a4be7e8f8f6c4
+    modified: 1623302992490
+    created: 1623302009609
+    url: "{{ _.baseUrl }}/windows?id=2"
     name: List by param
     description: ""
     method: GET
