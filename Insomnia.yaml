@@ -1,8 +1,47 @@
 _type: export
 __export_format: 4
-__export_date: 2021-06-08T07:02:23.678Z
+__export_date: 2021-06-15T01:07:29.088Z
 __export_source: insomnia.desktop.app:v2021.3.0
 resources:
+  - _id: req_e298d57325d345eaacf3d1ef3d5b7b27
+    parentId: fld_afa3a8c5c10b4930a23ea779c6b3227c
+    modified: 1623513319188
+    created: 1623406380785
+    url: "{{ _.baseUrl }}/media/getMediaList"
+    name: Proxy RESTful
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1623406380785
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_afa3a8c5c10b4930a23ea779c6b3227c
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1623406367204
+    created: 1623406367204
+    name: Media
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623406367204
+    _type: request_group
+  - _id: wrk_28004b0463654a279bfc8babcf25df4e
+    parentId: null
+    modified: 1623405960462
+    created: 1611472640950
+    name: Basic-SaaS
+    description: ""
+    scope: collection
+    _type: workspace
   - _id: req_04ee1485afb349be855eb11a41eaaf47
     parentId: fld_afb2555a2e9e49e3962b31437a468e51
     modified: 1623133053196
@@ -34,14 +73,6 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1623132891459
     _type: request_group
-  - _id: wrk_28004b0463654a279bfc8babcf25df4e
-    parentId: null
-    modified: 1611472640950
-    created: 1611472640950
-    name: python-flask-boilerplate
-    description: ""
-    scope: collection
-    _type: workspace
   - _id: req_c99df050663541f7ac60a764e3c709f6
     parentId: fld_afb2555a2e9e49e3962b31437a468e51
     modified: 1623132989502
@@ -163,7 +194,7 @@ resources:
     _type: request
   - _id: req_e0adc3730e29413bb18387d2916a6a98
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1622807387010
+    modified: 1623406316725
     created: 1622807358324
     url: "{{ _.baseUrl }}/permission/2"
     name: Remove
@@ -171,7 +202,12 @@ resources:
     method: DELETE
     body: {}
     parameters: []
-    headers: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_273877307c5f428eacebd7d3c220b627
     authentication: {}
     metaSortKey: -1622807358324
     isPrivate: false
@@ -194,7 +230,7 @@ resources:
     _type: request_group
   - _id: req_12d5911f23e4498aa29e121e408e6183
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1622807136058
+    modified: 1623406315361
     created: 1622807051752
     url: "{{ _.baseUrl }}/permission?id=2"
     name: Query
@@ -202,7 +238,12 @@ resources:
     method: GET
     body: {}
     parameters: []
-    headers: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_91d9955b4bd9413595a8ae2f813bbb83
     authentication: {}
     metaSortKey: -1622807051752
     isPrivate: false
@@ -215,7 +256,7 @@ resources:
     _type: request
   - _id: req_8c2f8f03d5e4496dad314aa63405866c
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1622807338379
+    modified: 1623406313131
     created: 1622807151592
     url: "{{ _.baseUrl }}/permission?name=pow"
     name: Query by param
@@ -223,7 +264,12 @@ resources:
     method: GET
     body: {}
     parameters: []
-    headers: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_72132c87288741a988ceeb8b304d3c27
     authentication: {}
     metaSortKey: -1622806713383.5
     isPrivate: false
@@ -236,7 +282,7 @@ resources:
     _type: request
   - _id: req_b54b5b74ffa8418cbf4ffc678b3ea1af
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1623127023818
+    modified: 1623406311543
     created: 1622806375015
     url: "{{ _.baseUrl }}/permission"
     name: Create
@@ -254,6 +300,11 @@ resources:
       - name: Content-Type
         value: application/json
         id: pair_b2363317f547485c8a7beeea86a1e0b9
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_2ab07f55bfe24fad95d25d01679d8ced
     authentication: {}
     metaSortKey: -1622806375015
     isPrivate: false
@@ -266,7 +317,7 @@ resources:
     _type: request
   - _id: req_9d86a688161b4ba9afa032b69d7a91e6
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1622807211459
+    modified: 1623406309978
     created: 1622806752099
     url: "{{ _.baseUrl }}/permission/2"
     name: Modify
@@ -283,6 +334,11 @@ resources:
       - name: Content-Type
         value: application/json
         id: pair_69575b75e7fa428dac1aef984d2e9915
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_b835cab6bd0b4c199a73b2a04c243dd6
     authentication: {}
     metaSortKey: -1622806076144.5
     isPrivate: false
@@ -295,7 +351,7 @@ resources:
     _type: request
   - _id: req_0d5371ddf7814aaebfb0701436ccbb46
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1622805790555
+    modified: 1623406287303
     created: 1622805777274
     url: "{{ _.baseUrl }}/permissions"
     name: List
@@ -303,7 +359,12 @@ resources:
     method: GET
     body: {}
     parameters: []
-    headers: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_c675b03dfb27495b873dcc7bdd62864a
     authentication: {}
     metaSortKey: -1622805777274
     isPrivate: false
@@ -316,7 +377,7 @@ resources:
     _type: request
   - _id: req_1e1acbd0a51140b0820615bde1b10c6d
     parentId: fld_678ffd23f14a46d8842c86fa0c0e0aa0
-    modified: 1623123891375
+    modified: 1623406307408
     created: 1622807266344
     url: "{{ _.baseUrl }}/permissions?pid=0"
     name: List by param
@@ -324,7 +385,12 @@ resources:
     method: GET
     body: {}
     parameters: []
-    headers: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_2169815ce9034b63a985a3cb36c0ed63
     authentication: {}
     metaSortKey: -1622805318967.5
     isPrivate: false
@@ -751,6 +817,229 @@ resources:
     modified: 1622878196771
     created: 1622807478228
     url: "{{ _.baseUrl }}/users?id=2"
+    name: List by param
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_06afca95bcc449f183034d2e892e8e37
+    authentication: {}
+    metaSortKey: -1608331030436
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_23a745ac434e46d8b03fd0b8e07b2030
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623717883896
+    created: 1623511774016
+    url: "{{ _.baseUrl }}/widget"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "David",
+        	"pwd": "123456",
+        	"status": 1,
+        	"role_id": 1
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_15e0cda8df8f4f93a6ca16d4f91de1cc
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_f8c64039e91c42988d2206dc8b32adff
+        disabled: false
+    authentication: {}
+    metaSortKey: -1611472735121
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    parentId: wrk_28004b0463654a279bfc8babcf25df4e
+    modified: 1623511775647
+    created: 1623511774013
+    name: Widget
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1610798590454.25
+    _type: request_group
+  - _id: req_69c643739aa34a5ead59ea1ac9d2f7a3
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623717891358
+    created: 1623511774026
+    url: "{{ _.baseUrl }}/widget/1"
+    name: Remove
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_1a5042a7b2434888aedd0c56b8b7c776
+    authentication: {}
+    metaSortKey: -1611472735096
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6248334506384737bbcc367743770ffa
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623511774029
+    created: 1623511774029
+    url: "{{ _.baseUrl }}/user/1"
+    name: Modify
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Jack",
+        	"pwd": "321",
+        	"status": 0
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_dff08e1b868b4e81a8db1a826c4a3152
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_bb0298911e674c7185dccafb2d6cffcd
+    authentication: {}
+    metaSortKey: -1611472735083.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_228c7a35896248ca9cb384a8273fe8c2
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623516800775
+    created: 1623511774020
+    url: "{{ _.baseUrl }}/widget?id=1"
+    name: Query
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_1ff45b9ffd844bd4aa43796f87888ccf
+    authentication: {}
+    metaSortKey: -1611472735071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4e33777cce6d43a8a6e53ecf058932a6
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623511774032
+    created: 1623511774032
+    url: "{{ _.baseUrl }}/user?name=Jack"
+    name: Query by param
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_928bd7fb9e414a4fa6396d44b697dec5
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_fac36c2db8204f93abf8b30805ed7309
+    authentication: {}
+    metaSortKey: -1611472735058.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4f934e6aa62642e392fdec9433f3abd2
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623511781513
+    created: 1623511774023
+    url: "{{ _.baseUrl }}/widgets"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: JWT {% response 'body', 'req_e0363c37134a41da876abb09e9fb3a2f',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}
+        description: ""
+        id: pair_5afb45fae7594cddb920307ec345c3ac
+      - name: ""
+        value: ""
+        description: ""
+        id: pair_de45948abb76402287f66ef7e815d363
+    authentication: {}
+    metaSortKey: -1611472735046
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5389446b8936443b9f13dcfd2759f034
+    parentId: fld_ddb7c9e4ab4b49f0af2a86d5e76fd46c
+    modified: 1623511786707
+    created: 1623511774036
+    url: "{{ _.baseUrl }}/widgets?id=2"
     name: List by param
     description: ""
     method: GET
