@@ -6,4 +6,6 @@ import application.routes.access
 import application.routes.widget
 import application.routes.window
 
+import application.routes.demo
+
 import application.routes.mediaProxy

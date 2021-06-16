@@ -1,19 +1,19 @@
 # encoding: utf-8
 
-# from gevent.pywsgi import WSGIServer
+from gevent.pywsgi import WSGIServer
 from application import app
-from config import current
-
-host = '0.0.0.0'
-port = 5678
 
 if __name__ == '__main__':
 
-  if current.DEV:
+  print('????', app.config['DEV'], type(app.config['DEV']), app.config['MEDIA_SERVICE_RESTFUL_API_URL'], type(app.config['MEDIA_SERVICE_RESTFUL_API_URL']))
+  if app.config['DEV']:
     # Development
-    app.run(debug=True, host = current.HOST, port = current.PORT)
+    app.run(
+      debug = app.config['DEBUG'], 
+      host = app.config['HOST'], 
+      port = app.config['PORT'])
 
   else:
   # Production
-    http_server = WSGIServer((current.HOST, current.PORT), app)
+    http_server = WSGIServer((app.config['HOST'], app.config['PORT']), app)
     http_server.serve_forever()

@@ -1,6 +1,10 @@
-from flask import request
 import requests
 import json
+import aiohttp
+import asyncio
+from application import app
+from application.util import asyncPost
+import asyncio
 
 excludeMethods = (
   'getServerConfig',
@@ -8,14 +12,14 @@ excludeMethods = (
   'restartServer'
 )
 
+loop = asyncio.get_event_loop()
+
 def media_proxy_request(method, **kwargs):
 
   if method in excludeMethods: return
-
-  secret = '035c73f7-bb6b-4889-a715-d9eb2d1925cc'
-  params = dict(kwargs)
-  params['secret'] = secret
-  response = requests.post('http://localhost:8080/index/api/' + method, params = params)
   
-  # return response.text
-  return json.loads(response.text)
+  params = dict(kwargs)
+  params['secret'] = app.config['MEDIA_SERVICE_SECRET']
+  url = app.config['MEDIA_SERVICE_RESTFUL_API_URL'] + '/' + method
+  response = loop.run_until_complete(asyncPost(url, params))
+  return json.loads(response)

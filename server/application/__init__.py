@@ -28,5 +28,6 @@ import application.routes
 
 
 
+
 # after Model defined
 db.create_all()

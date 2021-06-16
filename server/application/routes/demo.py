@@ -3,6 +3,19 @@
 from flask import request, jsonify
 import json
 from application import app
+import asyncio
+
+async def bar ():
+  return '12'
+
+loop = asyncio.get_event_loop()
+
+@app.route('/demo/async', methods = ['GET'])
+def demo_async ():
+  
+
+  res = loop.run_until_complete(bar())
+  return res
 
 @app.route('/demo/param/<name>', methods=['GET'])
 def demo_param (name):

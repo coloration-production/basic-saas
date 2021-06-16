@@ -21,10 +21,18 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
 
     for cmr in cameras:
       hasProxy = False
+      baseUrl = app.config['MEDIA_SERVICE_NAME']
       for mediaProxy in mediaList:
         if mediaProxy['originUrl'] == cmr['url']:
           hasProxy = True
-          cmr.update({ 'info': { 'src': 'http://192.168.0.18:8080/{}/{}.flv'.format(mediaProxyAppName, mediaProxy['stream']) } })
+          cmr.update({ 
+            'info': 
+            { 'src': '/{}/{}/{}.flv'.format(
+              baseUrl,
+              mediaProxyAppName, 
+              mediaProxy['stream']) 
+            } 
+          })
 
       if not hasProxy:
         defaultHost = '__defaultVhost__'
@@ -39,7 +47,10 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
         
         if response['code'] == 0:
           key = response['data']['key']
-          cmr.update({ 'info': { 'src': re.sub(defaultHost, 'http://192.168.0.18:8080', key) + '.flv' }})
+          cmr.update({ 
+            'info': { 
+              'src': re.sub(defaultHost, baseUrl, key) + '.flv' 
+            }})
         pass
 
   return dicts[0] if single else jsonify(dicts)
