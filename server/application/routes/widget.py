@@ -21,14 +21,12 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
 
     for cmr in cameras:
       hasProxy = False
-      baseUrl = app.config['MEDIA_SERVICE_NAME']
       for mediaProxy in mediaList:
         if mediaProxy['originUrl'] == cmr['url']:
           hasProxy = True
           cmr.update({ 
             'info': 
-            { 'src': '/{}/{}/{}.flv'.format(
-              baseUrl,
+            { 'src': '/{}/{}.flv'.format(
               mediaProxyAppName, 
               mediaProxy['stream']) 
             } 
@@ -49,7 +47,7 @@ def format_response_dict (record, rules = ('-windows.widgets',), single = False)
           key = response['data']['key']
           cmr.update({ 
             'info': { 
-              'src': re.sub(defaultHost, baseUrl, key) + '.flv' 
+              'src': re.sub('/' + defaultHost, '', key) + '.flv' 
             }})
         pass
 

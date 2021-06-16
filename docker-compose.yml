@@ -15,7 +15,7 @@ services:
       
       # use container inner port
       # https://stackoverflow.com/questions/55523273/why-container-cant-request-to-another
-      - MEDIA_SERVICE_RESTFUL_URL=http://media-service:80
+      - MEDIA_SERVICE_RESTFUL_API_URL=http://media-service:80/index/api
     ports:
       - 5678:5678
   media-service:

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, ref, watchEffect } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref, watchEffect } from 'vue'
 // import 'videojs-flvjs-es6'
 
 export default defineComponent({
@@ -16,13 +16,15 @@ export default defineComponent({
   setup(props) {
     const videoRef = ref<HTMLVideoElement>()
     // const player = ref<any>(null)
-
     function disposeLastPlayer() {
       // if (player.value) player.value.dispose()
     }
 
     watchEffect(() => {
       if (props.url === null || !videoRef.value) return
+      const address = `${import.meta.env.VITE_MEDIA_URL}${props.url}`
+      window.console.log('liveing address', address)
+      videoRef.value.setAttribute('video-url', address)
       disposeLastPlayer()
     })
 
@@ -39,12 +41,13 @@ export default defineComponent({
 </script>
 <template>
   <div class="h-full w-full">
-    <iframe
-      ref="videoRender"
-      :src="`/liveplayer/index.html?url=${url}`"
-      style="width:100%; height:35rem;"
-      frameborder="no"
-      border="0"
+    <!-- import global js in /index.html capture 'live-player' tag -->
+    <live-player
+      ref="video"
+      live="true"
+      stretch="true"
+      show-custom-button="false"
+      autoplay
     />
   </div>
 </template>

@@ -5,7 +5,6 @@ from application import app
 
 if __name__ == '__main__':
 
-  print('????', app.config['DEV'], type(app.config['DEV']), app.config['MEDIA_SERVICE_RESTFUL_API_URL'], type(app.config['MEDIA_SERVICE_RESTFUL_API_URL']))
   if app.config['DEV']:
     # Development
     app.run(
